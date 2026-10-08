@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setting MBG</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="min-h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-sky-500/20"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1 class="font-bold text-white">MBG System</h1>
+            <p class="text-xs text-sky-400">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-chart-pie w-5 text-center"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="./barang.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-stacked w-5 text-center"></i
+            ><span>Kelola Barang</span></a
+          >
+          <a
+            href="./stok.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-packing w-5 text-center"></i
+            ><span>Stok Barang</span></a
+          >
+          <a
+            href="./menu.html"
+            id="nav-menu"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-utensils w-5 text-center"></i
+            ><span>Menu &amp; AKG</span></a
+          >
+          <a
+            href="./supplier.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-truck-field w-5 text-center"></i
+            ><span>Data Supplier</span></a
+          >
+          <a
+            href="./pm.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-hospital-user w-5 text-center"></i
+            ><span>Penerima Manfaat</span></a
+          >
+          <a
+            href="./dokumen.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-file-contract w-5 text-center"></i
+            ><span>Dokumen & LPJ</span></a
+          >
+          <a
+            href="./user.html"
+            id="nav-users"
+            class="nav-item hidden flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-users-gear w-5 text-center"></i
+            ><span>Pengguna</span></a
+          >
+          <a
+            href="./setting.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl bg-sky-600 text-white shadow-md"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span
+          ><span
+            class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button
+          id="installAppBtn"
+          type="button"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"
+        >
+          <i class="fa-solid fa-download"></i><span>Install aplikasi</span>
+        </button>
+        <p class="text-[11px] text-slate-500">
+          Kementerian / Badan Gizi Nasional
+        </p>
+      </div>
+    </aside>
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+    <main class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-4 px-4 sm:py-5 sm:px-8 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-3">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl"
+            aria-label="Buka menu"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2 class="text-xl font-bold text-slate-800 tracking-tight">
+              Setting Aplikasi
+            </h2>
+            <p class="text-xs text-slate-500 mt-1 hidden sm:block">
+              Pengaturan identitas dapur dan preferensi aplikasi
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i
+            ><span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer">
+            <button
+              onclick="handleLoginClick()"
+              class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium text-xs rounded-xl"
+            >
+              <i class="fa-brands fa-google"></i
+              ><span class="hidden sm:inline">Login Google</span>
+            </button>
+          </div>
+        </div>
+      </header>
+      <section class="flex-1 p-6 sm:p-10 max-w-7xl w-full mx-auto space-y-6">
+        <form
+          id="kitchenSettingsForm"
+          class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5"
+        >
+          <div>
+            <h3 class="font-bold text-slate-800">Identitas dan lokasi dapur</h3>
+            <p class="text-xs text-slate-500 mt-1">
+              Atur nama unit, alamat, kontak penanggung jawab, dan titik lokasi
+              dapur.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label
+                for="kitchenName"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Nama dapur / unit SPPG</label
+              >
+              <input
+                id="kitchenName"
+                type="text"
+                maxlength="120"
+                placeholder="Contoh: SPPG Kecamatan ..."
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="kitchenAddress"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Alamat dapur</label
+              >
+              <textarea
+                id="kitchenAddress"
+                rows="2"
+                maxlength="300"
+                placeholder="Alamat lengkap dapur"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              ></textarea>
+            </div>
+            <div class="sm:col-span-2 border-t border-slate-100 pt-4">
+              <h4 class="text-sm font-bold text-slate-800">
+                Identitas dan logo kop Surat / RAB
+              </h4>
+              <p class="mt-1 text-[11px] text-slate-500">
+                Nama yayasan dan logo kiri/kanan akan dicetak bersama identitas
+                dapur.
+              </p>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="foundationName"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Nama yayasan</label
+              >
+              <input
+                id="foundationName"
+                type="text"
+                maxlength="160"
+                placeholder="Nama yayasan / penyelenggara"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="foundationLogoFile"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Logo kiri kop (yayasan / SPPG)</label
+              >
+              <div
+                class="flex flex-col gap-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 sm:flex-row sm:items-center"
+              >
+                <img
+                  id="foundationLogoPreview"
+                  alt="Pratinjau logo untuk kop RAB"
+                  class="hidden h-20 w-28 rounded-lg border border-slate-200 bg-white object-contain p-2"
+                />
+                <div class="min-w-0 flex-1">
+                  <input
+                    id="foundationLogoFile"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    class="block w-full text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-sky-100 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-sky-700"
+                  />
+                  <p
+                    id="foundationLogoStatus"
+                    class="mt-2 text-[10px] text-slate-500"
+                  >
+                    PNG, JPG, atau WebP. Logo dikompres sebelum disimpan ke
+                    Firebase.
+                  </p>
+                </div>
+                <button
+                  id="removeFoundationLogoBtn"
+                  type="button"
+                  class="hidden rounded-lg bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-700"
+                >
+                  Hapus logo
+                </button>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="rightLogoFile"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Logo kanan kop</label
+              >
+              <div
+                class="flex flex-col gap-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 sm:flex-row sm:items-center"
+              >
+                <img
+                  id="rightLogoPreview"
+                  alt="Pratinjau logo kanan kop"
+                  class="hidden h-20 w-28 rounded-lg border border-slate-200 bg-white object-contain p-2"
+                />
+                <div class="min-w-0 flex-1">
+                  <input
+                    id="rightLogoFile"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    class="block w-full text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-sky-100 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-sky-700"
+                  />
+                  <p
+                    id="rightLogoStatus"
+                    class="mt-2 text-[10px] text-slate-500"
+                  >
+                    PNG, JPG, atau WebP. Logo dikompres sebelum disimpan ke
+                    Firebase.
+                  </p>
+                </div>
+                <button
+                  id="removeRightLogoBtn"
+                  type="button"
+                  class="hidden rounded-lg bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-700"
+                >
+                  Hapus logo kanan
+                </button>
+              </div>
+            </div>
+            <div class="sm:col-span-2 border-t border-slate-100 pt-4">
+              <h4 class="text-sm font-bold text-slate-800">
+                Penandatangan surat
+              </h4>
+              <p class="mt-1 text-[11px] text-slate-500">
+                Nama ini otomatis dicantumkan pada surat permintaan pembayaran.
+              </p>
+            </div>
+            <div>
+              <label
+                for="sppPicName"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Nama PIC SPPG</label
+              >
+              <input
+                id="sppPicName"
+                type="text"
+                maxlength="140"
+                placeholder="Nama PIC SPPG"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div>
+              <label
+                for="sppAccountantName"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Nama akuntan</label
+              >
+              <input
+                id="sppAccountantName"
+                type="text"
+                maxlength="140"
+                placeholder="Nama akuntan"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="sppHeadName"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Nama kepala SPPG</label
+              >
+              <input
+                id="sppHeadName"
+                type="text"
+                maxlength="140"
+                placeholder="Nama kepala SPPG"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div>
+              <label
+                for="kitchenPhone"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Kontak penanggung jawab</label
+              >
+              <input
+                id="kitchenPhone"
+                type="tel"
+                maxlength="30"
+                placeholder="Nomor telepon / WhatsApp"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div class="flex items-end">
+              <button
+                id="useKitchenLocationBtn"
+                type="button"
+                class="w-full px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold"
+              >
+                <i class="fa-solid fa-location-crosshairs mr-1"></i> Gunakan
+                lokasi terkini
+              </button>
+            </div>
+            <div>
+              <label
+                for="kitchenLatitude"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Latitude</label
+              >
+              <input
+                id="kitchenLatitude"
+                type="number"
+                step="any"
+                min="-90"
+                max="90"
+                placeholder="-6.200000"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+            <div>
+              <label
+                for="kitchenLongitude"
+                class="block text-xs font-semibold text-slate-700 mb-1"
+                >Longitude</label
+              >
+              <input
+                id="kitchenLongitude"
+                type="number"
+                step="any"
+                min="-180"
+                max="180"
+                placeholder="106.816666"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
+              />
+            </div>
+          </div>
+          <div
+            class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4"
+          >
+            <a
+              id="kitchenMapLink"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              class="hidden text-xs font-semibold text-sky-700 hover:underline"
+              ><i class="fa-solid fa-map-location-dot mr-1"></i>Lihat lokasi di
+              Google Maps</a
+            >
+            <span
+              id="kitchenSettingsMessage"
+              class="text-xs text-slate-500"
+              role="status"
+            ></span>
+            <button
+              type="submit"
+              class="ml-auto px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold"
+            >
+              <i class="fa-solid fa-floppy-disk mr-1"></i>Simpan pengaturan
+            </button>
+          </div>
+          <p class="text-[10px] text-slate-400">
+            Pengaturan ini tersimpan di browser/perangkat yang digunakan.
+          </p>
+        </form>
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <h3 class="font-bold text-slate-800">Preferensi</h3>
+          <div
+            class="mt-5 flex flex-col gap-3 border-b border-slate-100 pb-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div class="min-w-0">
+              <p class="text-sm font-semibold">Notifikasi aplikasi</p>
+              <p class="mt-1 text-xs text-slate-500">
+                Periksa izin notifikasi browser dan kirim notifikasi percobaan.
+              </p>
+              <p
+                id="notificationPermissionStatus"
+                class="mt-2 text-xs font-semibold text-slate-500"
+                role="status"
+                aria-live="polite"
+              >
+                Memeriksa dukungan notifikasi...
+              </p>
+            </div>
+            <button
+              id="checkNotificationBtn"
+              type="button"
+              class="shrink-0 rounded-xl bg-sky-600 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-sky-700"
+            >
+              <i class="fa-regular fa-bell mr-1"></i>Cek notifikasi
+            </button>
+          </div>
+          <div
+            class="mt-5 flex items-center justify-between border-b border-slate-100 pb-4"
+          >
+            <div>
+              <p class="text-sm font-semibold">Animasi antarmuka</p>
+              <p class="text-xs text-slate-500">
+                Aktifkan transisi halus pada halaman.
+              </p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer"
+              ><input
+                id="motionToggle"
+                type="checkbox"
+                class="sr-only peer"
+                checked /><span
+                class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-sky-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+              ></span
+            ></label>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <div>
+              <p class="text-sm font-semibold">Status offline PWA</p>
+              <p class="text-xs text-slate-500">
+                Service worker menyimpan shell aplikasi untuk akses offline.
+              </p>
+            </div>
+            <span id="pwaStatus" class="text-xs font-bold text-emerald-600"
+              ><i class="fa-solid fa-circle-check"></i> Aktif</span
+            >
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <h3 class="font-bold text-slate-800">Aksi aplikasi</h3>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button
+              id="refreshPwaBtn"
+              class="px-4 py-2.5 rounded-xl bg-sky-600 text-white text-xs font-semibold"
+            >
+              <i class="fa-solid fa-rotate"></i> Perbarui aplikasi</button
+            ><a
+              href="./tentang.html"
+              class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold"
+              ><i class="fa-solid fa-circle-info"></i> Info Firebase</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <div
+      id="toastContainer"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
+    ></div>
+    <script type="module" src="./app.js"></script>
+    <script>
+      const kitchenSettingsKey = "mbgKitchenSettings";
+      const kitchenFields = [
+        "kitchenName",
+        "kitchenAddress",
+        "kitchenPhone",
+        "kitchenLatitude",
+        "kitchenLongitude",
+        "foundationName",
+        "sppPicName",
+        "sppAccountantName",
+        "sppHeadName",
+      ];
+      const kitchenMapLink = document.getElementById("kitchenMapLink");
+      const kitchenSettingsMessage = document.getElementById(
+        "kitchenSettingsMessage",
+      );
+      const foundationLogoPreview = document.getElementById(
+        "foundationLogoPreview",
+      );
+      const foundationLogoStatus = document.getElementById(
+        "foundationLogoStatus",
+      );
+      const removeFoundationLogoBtn = document.getElementById(
+        "removeFoundationLogoBtn",
+      );
+      const rightLogoPreview = document.getElementById("rightLogoPreview");
+      const rightLogoStatus = document.getElementById("rightLogoStatus");
+      const removeRightLogoBtn = document.getElementById("removeRightLogoBtn");
+      let foundationLogoDataUrl = "";
+      let rightLogoDataUrl = "";
+
+      const notificationPermissionStatus = document.getElementById(
+        "notificationPermissionStatus",
+      );
+      const checkNotificationBtn = document.getElementById(
+        "checkNotificationBtn",
+      );
+      function renderNotificationPermission() {
+        if (!("Notification" in window)) {
+          notificationPermissionStatus.textContent =
+            "Browser ini tidak mendukung notifikasi.";
+          notificationPermissionStatus.className =
+            "mt-2 text-xs font-semibold text-rose-600";
+          checkNotificationBtn.disabled = true;
+          checkNotificationBtn.classList.add(
+            "cursor-not-allowed",
+            "opacity-50",
+          );
+          return;
+        }
+        const state = Notification.permission;
+        const labels = {
+          granted: [
+            "Izin aktif. Klik tombol untuk menerima notifikasi percobaan.",
+            "mt-2 text-xs font-semibold text-emerald-700",
+          ],
+          denied: [
+            "Izin diblokir. Ubah izin notifikasi situs ini melalui pengaturan browser.",
+            "mt-2 text-xs font-semibold text-rose-600",
+          ],
+          default: [
+            "Izin belum diberikan. Klik tombol untuk meminta izin dan mencoba notifikasi.",
+            "mt-2 text-xs font-semibold text-amber-700",
+          ],
+        };
+        const [label, className] = labels[state] || labels.default;
+        notificationPermissionStatus.textContent = label;
+        notificationPermissionStatus.className = className;
+      }
+
+      checkNotificationBtn.addEventListener("click", async () => {
+        if (!("Notification" in window)) return renderNotificationPermission();
+        if (!window.isSecureContext) {
+          notificationPermissionStatus.textContent =
+            "Notifikasi memerlukan HTTPS atau localhost.";
+          notificationPermissionStatus.className =
+            "mt-2 text-xs font-semibold text-rose-600";
+          return;
+        }
+        checkNotificationBtn.disabled = true;
+        const originalButton = checkNotificationBtn.innerHTML;
+        checkNotificationBtn.innerHTML =
+          '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Memeriksa...';
+        try {
+          let permission = Notification.permission;
+          if (permission === "default")
+            permission = await Notification.requestPermission();
+          renderNotificationPermission();
+          if (permission === "granted") {
+            const options = {
+              body: "Notifikasi aplikasi MBG berhasil diterima di perangkat ini.",
+              icon: foundationLogoDataUrl || "./assets/icon-192.svg",
+              tag: `mbg-notification-check-${Date.now()}`,
+              renotify: true,
+            };
+            if ("serviceWorker" in navigator) {
+              const registration = await navigator.serviceWorker.ready.catch(
+                () => null,
+              );
+              if (registration?.showNotification)
+                await registration.showNotification(
+                  "Tes notifikasi MBG",
+                  options,
+                );
+              else new Notification("Tes notifikasi MBG", options);
+            } else new Notification("Tes notifikasi MBG", options);
+            notificationPermissionStatus.textContent =
+              "Notifikasi percobaan berhasil dikirim.";
+            notificationPermissionStatus.className =
+              "mt-2 text-xs font-semibold text-emerald-700";
+          }
+        } catch (error) {
+          notificationPermissionStatus.textContent =
+            error.message ||
+            "Notifikasi gagal dikirim. Periksa izin situs di browser.";
+          notificationPermissionStatus.className =
+            "mt-2 text-xs font-semibold text-rose-600";
+        } finally {
+          checkNotificationBtn.disabled = false;
+          checkNotificationBtn.innerHTML = originalButton;
+        }
+      });
+      renderNotificationPermission();
+
+      function refreshKitchenMapLink() {
+        const latitude = document.getElementById("kitchenLatitude").value;
+        const longitude = document.getElementById("kitchenLongitude").value;
+        const valid =
+          latitude !== "" &&
+          longitude !== "" &&
+          Number(latitude) >= -90 &&
+          Number(latitude) <= 90 &&
+          Number(longitude) >= -180 &&
+          Number(longitude) <= 180;
+        kitchenMapLink.href = valid
+          ? `https://www.google.com/maps?q=${encodeURIComponent(latitude)},${encodeURIComponent(longitude)}`
+          : "#";
+        kitchenMapLink.classList.toggle("hidden", !valid);
+      }
+
+      function applyKitchenSettings(savedKitchenSettings = {}) {
+        kitchenFields.forEach((id) => {
+          const field = document.getElementById(id);
+          if (field) field.value = savedKitchenSettings[id] || "";
+        });
+        foundationLogoDataUrl =
+          savedKitchenSettings.leftLogoDataUrl ||
+          savedKitchenSettings.foundationLogoDataUrl ||
+          "";
+        rightLogoDataUrl = savedKitchenSettings.rightLogoDataUrl || "";
+        if (foundationLogoDataUrl) {
+          foundationLogoPreview.src = foundationLogoDataUrl;
+          foundationLogoPreview.classList.remove("hidden");
+          removeFoundationLogoBtn.classList.remove("hidden");
+          foundationLogoStatus.textContent =
+            "Logo kiri tersimpan dan akan dicetak pada kop Surat serta RAB.";
+        } else {
+          foundationLogoPreview.removeAttribute("src");
+          foundationLogoPreview.classList.add("hidden");
+          removeFoundationLogoBtn.classList.add("hidden");
+          foundationLogoStatus.textContent =
+            "PNG, JPG, atau WebP. Logo dikompres sebelum disimpan ke Firebase.";
+        }
+        if (rightLogoDataUrl) {
+          rightLogoPreview.src = rightLogoDataUrl;
+          rightLogoPreview.classList.remove("hidden");
+          removeRightLogoBtn.classList.remove("hidden");
+          rightLogoStatus.textContent =
+            "Logo kanan tersimpan dan akan dicetak pada kop Surat serta RAB.";
+        } else {
+          rightLogoPreview.removeAttribute("src");
+          rightLogoPreview.classList.add("hidden");
+          removeRightLogoBtn.classList.add("hidden");
+          rightLogoStatus.textContent =
+            "PNG, JPG, atau WebP. Logo dikompres sebelum disimpan ke Firebase.";
+        }
+        refreshKitchenMapLink();
+      }
+
+      window.addEventListener("mbg-kitchen-settings-updated", () => {
+        const settings = window.appState?.kitchenSettings;
+        if (settings) applyKitchenSettings(settings);
+      });
+
+      try {
+        const savedKitchenSettings = JSON.parse(
+          localStorage.getItem(kitchenSettingsKey) || "{}",
+        );
+        applyKitchenSettings(savedKitchenSettings);
+      } catch {}
+      refreshKitchenMapLink();
+      ["kitchenLatitude", "kitchenLongitude"].forEach((id) =>
+        document
+          .getElementById(id)
+          .addEventListener("input", refreshKitchenMapLink),
+      );
+
+      document
+        .getElementById("foundationLogoFile")
+        .addEventListener("change", async (event) => {
+          const file = event.target.files?.[0];
+          if (!file) return;
+          if (
+            !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
+            file.size > 4 * 1024 * 1024
+          ) {
+            event.target.value = "";
+            foundationLogoStatus.textContent =
+              "Gunakan logo PNG, JPG, atau WebP maksimal 4 MB.";
+            foundationLogoStatus.className = "mt-2 text-[10px] text-rose-600";
+            return;
+          }
+          foundationLogoStatus.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mengompres logo...';
+          try {
+            const bitmap = await createImageBitmap(file);
+            const scale = Math.min(1, 600 / bitmap.width, 240 / bitmap.height);
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+            canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+            canvas
+              .getContext("2d")
+              .drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+            bitmap.close?.();
+            let quality = 0.82;
+            let blob = await new Promise((resolve) =>
+              canvas.toBlob(resolve, "image/webp", quality),
+            );
+            while (blob && blob.size > 300 * 1024 && quality > 0.35) {
+              quality -= 0.1;
+              blob = await new Promise((resolve) =>
+                canvas.toBlob(resolve, "image/webp", quality),
+              );
+            }
+            if (!blob || blob.size > 300 * 1024)
+              throw new Error("Logo masih terlalu besar setelah dikompres.");
+            foundationLogoDataUrl = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = () => reject(new Error("Logo gagal dibaca."));
+              reader.readAsDataURL(blob);
+            });
+            foundationLogoPreview.src = foundationLogoDataUrl;
+            foundationLogoPreview.classList.remove("hidden");
+            removeFoundationLogoBtn.classList.remove("hidden");
+            foundationLogoStatus.textContent =
+              "Logo siap disimpan (" +
+              (blob.size / 1024).toFixed(0) +
+              " KB setelah kompresi).";
+            foundationLogoStatus.className =
+              "mt-2 text-[10px] text-emerald-700";
+          } catch (error) {
+            event.target.value = "";
+            foundationLogoStatus.textContent =
+              error.message || "Logo gagal diproses.";
+            foundationLogoStatus.className = "mt-2 text-[10px] text-rose-600";
+          }
+        });
+      removeFoundationLogoBtn.addEventListener("click", () => {
+        foundationLogoDataUrl = "";
+        foundationLogoPreview.removeAttribute("src");
+        foundationLogoPreview.classList.add("hidden");
+        removeFoundationLogoBtn.classList.add("hidden");
+        document.getElementById("foundationLogoFile").value = "";
+        foundationLogoStatus.textContent =
+          "Logo dihapus. Tekan Simpan pengaturan untuk menyimpan perubahan.";
+        foundationLogoStatus.className = "mt-2 text-[10px] text-slate-500";
+      });
+
+      document
+        .getElementById("rightLogoFile")
+        .addEventListener("change", async (event) => {
+          const file = event.target.files?.[0];
+          if (!file) return;
+          if (
+            !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
+            file.size > 4 * 1024 * 1024
+          ) {
+            event.target.value = "";
+            rightLogoStatus.textContent =
+              "Gunakan logo PNG, JPG, atau WebP maksimal 4 MB.";
+            rightLogoStatus.className = "mt-2 text-[10px] text-rose-600";
+            return;
+          }
+          rightLogoStatus.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mengompres logo kanan...';
+          try {
+            const bitmap = await createImageBitmap(file);
+            const scale = Math.min(1, 600 / bitmap.width, 240 / bitmap.height);
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+            canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+            canvas
+              .getContext("2d")
+              .drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+            bitmap.close?.();
+            let quality = 0.82;
+            let blob = await new Promise((resolve) =>
+              canvas.toBlob(resolve, "image/webp", quality),
+            );
+            while (blob && blob.size > 300 * 1024 && quality > 0.35) {
+              quality -= 0.1;
+              blob = await new Promise((resolve) =>
+                canvas.toBlob(resolve, "image/webp", quality),
+              );
+            }
+            if (!blob || blob.size > 300 * 1024)
+              throw new Error("Logo masih terlalu besar setelah dikompres.");
+            rightLogoDataUrl = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = () => reject(new Error("Logo gagal dibaca."));
+              reader.readAsDataURL(blob);
+            });
+            rightLogoPreview.src = rightLogoDataUrl;
+            rightLogoPreview.classList.remove("hidden");
+            removeRightLogoBtn.classList.remove("hidden");
+            rightLogoStatus.textContent =
+              "Logo kanan siap disimpan (" +
+              (blob.size / 1024).toFixed(0) +
+              " KB setelah kompresi).";
+            rightLogoStatus.className = "mt-2 text-[10px] text-emerald-700";
+          } catch (error) {
+            event.target.value = "";
+            rightLogoStatus.textContent =
+              error.message || "Logo kanan gagal diproses.";
+            rightLogoStatus.className = "mt-2 text-[10px] text-rose-600";
+          }
+        });
+      removeRightLogoBtn.addEventListener("click", () => {
+        rightLogoDataUrl = "";
+        rightLogoPreview.removeAttribute("src");
+        rightLogoPreview.classList.add("hidden");
+        removeRightLogoBtn.classList.add("hidden");
+        document.getElementById("rightLogoFile").value = "";
+        rightLogoStatus.textContent =
+          "Logo kanan dihapus. Tekan Simpan pengaturan untuk menyimpan perubahan.";
+        rightLogoStatus.className = "mt-2 text-[10px] text-slate-500";
+      });
+
+      document
+        .getElementById("kitchenSettingsForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const latitude = document.getElementById("kitchenLatitude").value;
+          const longitude = document.getElementById("kitchenLongitude").value;
+          if ((latitude && !longitude) || (!latitude && longitude)) {
+            kitchenSettingsMessage.textContent =
+              "Isi latitude dan longitude sekaligus.";
+            kitchenSettingsMessage.className = "text-xs text-red-600";
+            return;
+          }
+          if (
+            latitude &&
+            (Number(latitude) < -90 ||
+              Number(latitude) > 90 ||
+              Number(longitude) < -180 ||
+              Number(longitude) > 180)
+          ) {
+            kitchenSettingsMessage.textContent =
+              "Koordinat di luar rentang yang valid.";
+            kitchenSettingsMessage.className = "text-xs text-red-600";
+            return;
+          }
+          const settings = Object.fromEntries(
+            kitchenFields.map((id) => [
+              id,
+              document.getElementById(id).value.trim(),
+            ]),
+          );
+          settings.foundationLogoDataUrl = foundationLogoDataUrl;
+          settings.leftLogoDataUrl = foundationLogoDataUrl;
+          settings.rightLogoDataUrl = rightLogoDataUrl;
+          try {
+            if (typeof window.saveKitchenSettingsToFirebase !== "function")
+              throw new Error(
+                "Firebase belum siap. Muat ulang halaman lalu coba lagi.",
+              );
+            await window.saveKitchenSettingsToFirebase(settings);
+            kitchenSettingsMessage.textContent =
+              "Pengaturan dapur berhasil disimpan.";
+            kitchenSettingsMessage.className = "text-xs text-emerald-700";
+            refreshKitchenMapLink();
+          } catch (error) {
+            kitchenSettingsMessage.textContent =
+              error.message || "Pengaturan gagal disimpan ke Firebase.";
+            kitchenSettingsMessage.className = "text-xs text-red-600";
+          }
+        });
+
+      document
+        .getElementById("useKitchenLocationBtn")
+        .addEventListener("click", (event) => {
+          const button = event.currentTarget;
+          if (!navigator.geolocation) {
+            kitchenSettingsMessage.textContent =
+              "Browser ini tidak mendukung akses lokasi.";
+            kitchenSettingsMessage.className = "text-xs text-red-600";
+            return;
+          }
+          button.disabled = true;
+          button.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mengambil lokasi...';
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              document.getElementById("kitchenLatitude").value =
+                position.coords.latitude.toFixed(6);
+              document.getElementById("kitchenLongitude").value =
+                position.coords.longitude.toFixed(6);
+              refreshKitchenMapLink();
+              kitchenSettingsMessage.textContent =
+                "Lokasi terkini terisi. Tekan Simpan pengaturan untuk menyimpannya.";
+              kitchenSettingsMessage.className = "text-xs text-emerald-700";
+              button.disabled = false;
+              button.innerHTML =
+                '<i class="fa-solid fa-location-crosshairs mr-1"></i> Gunakan lokasi terkini';
+            },
+            () => {
+              kitchenSettingsMessage.textContent =
+                "Lokasi tidak bisa diakses. Izinkan akses lokasi atau masukkan koordinat manual.";
+              kitchenSettingsMessage.className = "text-xs text-red-600";
+              button.disabled = false;
+              button.innerHTML =
+                '<i class="fa-solid fa-location-crosshairs mr-1"></i> Gunakan lokasi terkini';
+            },
+            { enableHighAccuracy: true, timeout: 12000 },
+          );
+        });
+
+      document
+        .getElementById("refreshPwaBtn")
+        .addEventListener("click", () => location.reload());
+      document
+        .getElementById("motionToggle")
+        .addEventListener("change", (event) => {
+          document.body.classList.toggle(
+            "reduce-motion",
+            !event.target.checked,
+          );
+          try {
+            localStorage.setItem(
+              "mbgReduceMotion",
+              String(!event.target.checked),
+            );
+          } catch {}
+        });
+      try {
+        const reduceMotion = localStorage.getItem("mbgReduceMotion") === "true";
+        document.getElementById("motionToggle").checked = !reduceMotion;
+        document.body.classList.toggle("reduce-motion", reduceMotion);
+      } catch {}
+    </script>
+  </body>
+</html>

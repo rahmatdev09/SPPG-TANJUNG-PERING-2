@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surat Menyurat MBG</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="min-h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1
+              class="font-bold text-white tracking-wide text-base leading-tight"
+            >
+              MBG System
+            </h1>
+            <p class="text-xs text-sky-400 font-medium">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            id="nav-dashboard"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-chart-pie w-5 text-center"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="./barang.html"
+            id="nav-barang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-stacked w-5 text-center"></i
+            ><span>Kelola Barang</span></a
+          >
+          <a
+            href="./stok.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-packing w-5 text-center"></i
+            ><span>Stok Barang</span></a
+          >
+          <a
+            href="./menu.html"
+            id="nav-menu"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-utensils w-5 text-center"></i
+            ><span>Menu &amp; AKG</span></a
+          >
+          <a
+            href="./supplier.html"
+            id="nav-supplier"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-truck-field w-5 text-center"></i
+            ><span>Data Supplier</span></a
+          >
+          <a
+            href="./pm.html"
+            id="nav-pm"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-hospital-user w-5 text-center"></i
+            ><span>Penerima Manfaat</span></a
+          >
+          <a
+            href="./dokumen.html"
+            id="nav-dokumen"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-file-contract w-5 text-center"></i
+            ><span>Dokumen &amp; LPJ</span></a
+          >
+          <a
+            href="./user.html"
+            id="nav-users"
+            class="nav-item hidden flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-users-gear w-5 text-center"></i
+            ><span>Pengguna</span></a
+          >
+          <a
+            href="./setting.html"
+            id="nav-setting"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            id="nav-tentang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span
+          ><span
+            class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button
+          id="installAppBtn"
+          type="button"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"
+        >
+          <i class="fa-solid fa-download"></i><span>Install aplikasi</span>
+        </button>
+        <p class="text-[11px]">Kementerian / Badan Gizi Nasional</p>
+      </div>
+    </aside>
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+    <div class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-5 px-5 sm:px-10 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl"
+            aria-label="Buka menu"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2 class="text-xl font-bold tracking-tight">Surat Menyurat</h2>
+            <p class="text-xs text-slate-500 mt-1 hidden sm:block">
+              Pilih jenis surat yang akan dibuat
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i
+            ><span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer"></div>
+        </div>
+      </header>
+      <main class="flex-1 w-full max-w-7xl mx-auto p-5 sm:p-10 space-y-6">
+        <section
+          class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm"
+        >
+          <div class="flex items-start gap-4">
+            <div
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-700"
+            >
+              <i class="fa-solid fa-envelope-open-text text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-800">Pusat Surat MBG</h3>
+              <p class="mt-1 text-sm leading-6 text-slate-500">
+                Pilih jenis surat untuk melanjutkan. Jenis surat lain dapat
+                ditambahkan di sini berikutnya.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3
+            class="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500"
+          >
+            Jenis Surat
+          </h3>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article
+              class="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm"
+            >
+              <div class="flex items-center justify-between">
+                <div
+                  class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-700"
+                >
+                  <i class="fa-solid fa-money-bill-transfer text-lg"></i>
+                </div>
+                <span
+                  class="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700"
+                  >Tersedia</span
+                >
+              </div>
+              <h4 class="mt-4 font-bold text-slate-800">
+                Surat Permintaan Pembayaran
+              </h4>
+              <p class="mt-2 text-xs leading-5 text-slate-500">
+                Isi detail permintaan, gunakan contoh template, lalu cetak atau
+                simpan sebagai PDF.
+              </p>
+              <div
+                class="mt-4 flex flex-wrap gap-2 border-t border-slate-100 pt-4"
+              >
+                <button
+                  type="button"
+                  onclick="openSppForm()"
+                  class="rounded-xl bg-sky-700 px-4 py-2.5 text-xs font-bold text-white"
+                >
+                  <i class="fa-solid fa-file-pen mr-1"></i>Buat Surat</button
+                ><button
+                  type="button"
+                  onclick="previewSppTemplate()"
+                  class="rounded-xl bg-slate-100 px-4 py-2.5 text-xs font-bold text-slate-700"
+                >
+                  <i class="fa-regular fa-eye mr-1"></i>Contoh Template
+                </button>
+              </div>
+            </article>
+            <article
+              class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5"
+            >
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-slate-400"
+              >
+                <i class="fa-solid fa-plus text-lg"></i>
+              </div>
+              <h4 class="mt-4 font-bold text-slate-500">Surat Lainnya</h4>
+              <p class="mt-2 text-xs leading-5 text-slate-400">
+                Jenis surat lainnya akan ditambahkan menyusul.
+              </p>
+            </article>
+          </div>
+        </section>
+        <section
+          class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+        >
+          <div
+            class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 p-5"
+          >
+            <div>
+              <h3 class="font-bold text-slate-800">Surat yang sudah dibuat</h3>
+              <p class="mt-1 text-xs text-slate-500">
+                Daftar surat permintaan pembayaran yang tersimpan di Firebase.
+              </p>
+            </div>
+            <span
+              id="sppLetterCount"
+              class="rounded-full bg-sky-50 px-3 py-1.5 text-xs font-bold text-sky-700"
+              >0 surat</span
+            >
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[760px] text-left text-xs">
+              <thead
+                class="bg-slate-50 text-[10px] uppercase tracking-wide text-slate-500"
+              >
+                <tr>
+                  <th class="px-5 py-3">Tanggal</th>
+                  <th class="px-5 py-3">Nomor surat</th>
+                  <th class="px-5 py-3">Perihal</th>
+                  <th class="px-5 py-3 text-right">Total</th>
+                  <th class="px-5 py-3">Dibuat oleh</th>
+                  <th class="px-5 py-3 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="sppLettersTableBody">
+                <tr>
+                  <td colspan="6" class="px-5 py-10 text-center text-sky-700">
+                    <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat surat
+                    tersimpan...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div
+      id="sppFormModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-3 backdrop-blur-sm sm:p-4"
+      onclick="if (event.target === this) closeSppForm();"
+    >
+      <section
+        class="max-h-[96dvh] w-full max-w-7xl overflow-y-auto rounded-2xl bg-white p-4 shadow-2xl sm:p-6"
+      >
+        <div
+          class="mb-5 flex items-start justify-between gap-3 border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 id="sppFormTitle" class="font-bold">
+              Buat Surat Permintaan Pembayaran
+            </h3>
+            <p class="mt-1 text-xs text-slate-500">
+              Isi data surat dan rekap pembayaran. Kop diambil dari halaman
+              Setting.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="closeSppForm()"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form onsubmit="generateSppLetter(event)" class="space-y-4 text-xs">
+          <input id="sppLetterId" type="hidden" />
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div>
+              <label for="sppLetterNumber" class="mb-1 block font-semibold"
+                >Nomor surat</label
+              ><input
+                id="sppLetterNumber"
+                required
+                maxlength="100"
+                placeholder="001/SPPG/2026"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label for="sppLetterDate" class="mb-1 block font-semibold"
+                >Tanggal surat</label
+              ><input
+                id="sppLetterDate"
+                type="date"
+                required
+                onchange="refreshSppDatabaseOptions()"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label for="sppUrgency" class="mb-1 block font-semibold"
+                >Sifat surat</label
+              ><select
+                id="sppUrgency"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              >
+                <option>Segera</option>
+                <option>Biasa</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label for="sppRecipient" class="mb-1 block font-semibold"
+                >Penerima surat</label
+              ><input
+                id="sppRecipient"
+                required
+                maxlength="180"
+                placeholder="Ketua Yayasan"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label for="sppRecipientAddress" class="mb-1 block font-semibold"
+                >Alamat penerima</label
+              ><input
+                id="sppRecipientAddress"
+                maxlength="300"
+                placeholder="Di Tempat"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+          </div>
+          <div class="max-w-sm">
+            <label for="sppItemCategory" class="mb-1 block font-semibold"
+              >Kategori barang</label
+            ><select
+              id="sppItemCategory"
+              onchange="setSppItemCategory(this.value)"
+              class="w-full rounded-xl border border-slate-200 bg-white px-3 py-3"
+            >
+              <option value="bahan_baku">Bahan Baku</option>
+              <option value="operasional">Operasional</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label for="sppCategory" class="mb-1 block font-semibold"
+                >Kategori / perihal</label
+              ><input
+                id="sppCategory"
+                required
+                maxlength="180"
+                placeholder="Permintaan Pembayaran Dana Belanja (Kategori)"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label for="sppPurpose" class="mb-1 block font-semibold"
+                >Keterangan kegiatan</label
+              ><input
+                id="sppPurpose"
+                required
+                maxlength="500"
+                placeholder="Belanja bahan baku untuk kegiatan MBG"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+          </div>
+          <div class="rounded-xl border border-slate-200">
+            <div class="border-b border-slate-200 bg-slate-50 p-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="font-bold text-slate-700">
+                    Rincian pembayaran supplier
+                  </h4>
+                  <p class="mt-1 text-[10px] text-slate-500">
+                    Atur tanggal pada baris baru atau tambahkan semua barang
+                    dari satu tanggal. Total dihitung dari kuantitas × harga
+                    database.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onclick="addSppSupplierRow()"
+                  class="rounded-lg bg-sky-700 px-3 py-2.5 text-[10px] font-bold text-white"
+                >
+                  <i class="fa-solid fa-plus mr-1"></i>Tambah baris
+                </button>
+              </div>
+              <div class="mt-3 flex flex-wrap items-end gap-2">
+                <label class="min-w-[180px] flex-1 font-semibold text-slate-600"
+                  >Tanggal barang<input
+                    id="sppBulkItemDate"
+                    type="date"
+                    class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-normal" /></label
+                ><button
+                  type="button"
+                  onclick="addAllSppItemsForDate(this)"
+                  class="rounded-lg bg-sky-50 px-3 py-2.5 text-[10px] font-bold text-sky-700"
+                >
+                  <i class="fa-solid fa-list-check mr-1"></i>Tambah semua barang
+                  tanggal ini
+                </button>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[1120px] text-left">
+                <thead class="bg-white text-[10px] uppercase text-slate-500">
+                  <tr>
+                    <th class="p-2">Tanggal &amp; nama barang</th>
+                    <th class="p-2">Kuantitas</th>
+                    <th class="p-2">Harga satuan</th>
+                    <th class="p-2">Total</th>
+                    <th class="p-2">Nomor rekening</th>
+                    <th class="p-2">Nama bank</th>
+                    <th class="p-2">Nama supplier</th>
+                    <th class="p-2"></th>
+                  </tr>
+                </thead>
+                <tbody id="sppSupplierRows"></tbody>
+              </table>
+            </div>
+            <div
+              class="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 bg-slate-50 p-3"
+            >
+              <span class="text-xs font-bold text-slate-700"
+                >TOTAL PEMBAYARAN</span
+              ><strong id="sppTotalAmount" class="text-sm text-sky-800"
+                >Rp 0</strong
+              >
+            </div>
+          </div>
+          <div class="grid gap-4 lg:grid-cols-2">
+            <section class="rounded-xl border border-slate-200 p-4">
+              <div class="flex flex-wrap items-end justify-between gap-2">
+                <div>
+                  <h4 class="font-bold text-slate-700">Foto barang</h4>
+                  <p class="mt-1 text-[10px] text-slate-500">
+                    Ambil foto dari database Kelola Barang berdasarkan tanggal,
+                    atau unggah foto. Satu lembar dihitung satu lampiran.
+                  </p>
+                </div>
+                <div class="flex items-end gap-2">
+                  <label class="text-[10px] font-semibold text-slate-600"
+                    >Jumlah foto per lembar<select
+                      id="sppProductPhotoLayout"
+                      onchange="setSppProductPhotoLayout(this.value)"
+                      class="mt-1 block rounded-lg border border-slate-200 bg-white px-2 py-2 text-xs"
+                    >
+                      <option value="1">1 foto</option>
+                      <option value="2">2 foto</option>
+                      <option value="3">3 foto</option>
+                      <option value="4">4 foto</option>
+                      <option value="5">5 foto</option>
+                      <option value="6">6 foto</option>
+                    </select></label
+                  ><button
+                    type="button"
+                    onclick="addSppProductPhotoLayout()"
+                    class="rounded-lg bg-sky-700 px-3 py-2.5 text-[10px] font-bold text-white"
+                  >
+                    <i class="fa-solid fa-plus mr-1"></i>Tambah lembar
+                  </button>
+                </div>
+              </div>
+              <div class="mt-3 rounded-lg bg-slate-50 p-3">
+                <div class="flex flex-wrap items-end gap-2">
+                  <label
+                    for="sppProductPhotoDate"
+                    class="min-w-[160px] flex-1 text-[10px] font-semibold text-slate-600"
+                    >Tanggal barang<input
+                      id="sppProductPhotoDate"
+                      type="date"
+                      onchange="loadSppDatabaseProductPhotos()"
+                      class="mt-1 block w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs" /></label
+                  ><button
+                    type="button"
+                    onclick="loadSppDatabaseProductPhotos()"
+                    class="rounded-lg bg-white px-3 py-2 text-[10px] font-semibold text-sky-700 ring-1 ring-slate-200"
+                  >
+                    <i class="fa-solid fa-rotate mr-1"></i>Muat ulang
+                  </button>
+                </div>
+                <p
+                  id="sppDatabaseProductPhotoStatus"
+                  class="mt-2 text-[10px] text-slate-500"
+                >
+                  Pilih tanggal untuk mencari foto penerimaan barang.
+                </p>
+                <div
+                  id="sppDatabaseProductPhotoList"
+                  class="mt-2 grid max-h-40 grid-cols-1 gap-2 overflow-y-auto sm:grid-cols-2"
+                ></div>
+                <button
+                  type="button"
+                  onclick="addSelectedSppDatabaseProductPhotos()"
+                  class="mt-2 w-full rounded-lg bg-sky-50 px-3 py-2.5 text-[10px] font-bold text-sky-700"
+                >
+                  <i class="fa-solid fa-circle-plus mr-1"></i>Tambahkan foto
+                  terpilih ke layout
+                </button>
+              </div>
+              <details class="mt-3">
+                <summary
+                  class="cursor-pointer text-[10px] font-semibold text-slate-600"
+                >
+                  Atau unggah foto dari perangkat
+                </summary>
+                <input
+                  id="sppProductPhotoFiles"
+                  type="file"
+                  multiple
+                  accept="image/jpeg,image/png,image/webp"
+                  onchange="prepareSppAttachments(event, 'product')"
+                  class="mt-2 block w-full rounded-xl border border-slate-200 px-3 py-2.5 file:mr-3 file:rounded-lg file:border-0 file:bg-sky-50 file:px-3 file:py-2 file:text-[10px] file:font-semibold file:text-sky-700"
+                />
+              </details>
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <p
+                  id="sppProductPhotoStatus"
+                  class="text-[10px] text-slate-500"
+                >
+                  Belum ada lembar foto barang.
+                </p>
+                <button
+                  type="button"
+                  onclick="clearSppAttachments('product')"
+                  class="text-[10px] font-semibold text-rose-600"
+                >
+                  Hapus semua lembar
+                </button>
+              </div>
+              <div
+                id="sppProductPhotoPreviews"
+                class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3"
+              ></div>
+            </section>
+            <section class="rounded-xl border border-slate-200 p-4">
+              <div>
+                <h4 class="font-bold text-slate-700">Foto nota</h4>
+                <p class="mt-1 text-[10px] text-slate-500">
+                  Bisa pilih beberapa foto. Nota dicetak satu foto per halaman.
+                </p>
+              </div>
+              <input
+                id="sppInvoicePhotoFiles"
+                type="file"
+                multiple
+                accept="image/jpeg,image/png,image/webp"
+                onchange="prepareSppAttachments(event, 'invoice')"
+                class="mt-3 block w-full rounded-xl border border-slate-200 px-3 py-2.5 file:mr-3 file:rounded-lg file:border-0 file:bg-sky-50 file:px-3 file:py-2.5 file:text-[10px] file:font-semibold file:text-sky-700"
+              />
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <p
+                  id="sppInvoicePhotoStatus"
+                  class="text-[10px] text-slate-500"
+                >
+                  Belum ada foto nota.
+                </p>
+                <button
+                  type="button"
+                  onclick="clearSppAttachments('invoice')"
+                  class="text-[10px] font-semibold text-rose-600"
+                >
+                  Hapus semua
+                </button>
+              </div>
+              <div
+                id="sppInvoicePhotoPreviews"
+                class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3"
+              ></div>
+            </section>
+          </div>
+          <p class="rounded-xl bg-sky-50 px-3 py-2.5 text-[10px] text-sky-800">
+            <i class="fa-solid fa-circle-info mr-1"></i>Nama penandatangan
+            otomatis diambil dari halaman Setting.
+          </p>
+          <div
+            class="flex flex-col-reverse gap-2 border-t border-slate-100 pt-4 sm:flex-row sm:justify-end"
+          >
+            <button
+              type="button"
+              onclick="closeSppForm()"
+              class="rounded-xl bg-slate-100 px-4 py-3 font-semibold text-slate-600"
+            >
+              Batal</button
+            ><button
+              type="submit"
+              class="rounded-xl bg-sky-700 px-4 py-3 font-bold text-white"
+            >
+              <i class="fa-solid fa-eye mr-1"></i>Simpan &amp; Pratinjau
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <div
+      id="sppPreviewModal"
+      class="fixed inset-0 z-[55] hidden items-center justify-center bg-slate-950/70 p-2 backdrop-blur-sm sm:p-4"
+    >
+      <section
+        class="flex h-[95dvh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+      >
+        <div
+          class="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-3"
+        >
+          <div>
+            <h3 id="sppPreviewTitle" class="text-sm font-bold">
+              Pratinjau Surat
+            </h3>
+            <p class="text-[10px] text-slate-500">
+              Tabel/format surat dapat dicetak atau disimpan sebagai PDF.
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              type="button"
+              onclick="printSppPreview()"
+              class="rounded-lg bg-sky-700 px-3 py-2 text-xs font-bold text-white"
+            >
+              <i class="fa-solid fa-print mr-1"></i>Cetak / PDF</button
+            ><button
+              type="button"
+              onclick="closeSppPreview()"
+              class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-600"
+              aria-label="Tutup"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+        <iframe
+          id="sppPreviewFrame"
+          title="Pratinjau Surat Permintaan Pembayaran"
+          class="min-h-0 flex-1 bg-slate-100"
+        ></iframe>
+      </section>
+    </div>
+    <div
+      id="toastContainer"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
+    ></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

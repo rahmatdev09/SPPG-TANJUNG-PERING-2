@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengguna | MBG System</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: { extend: { fontFamily: { sans: ["Inter", "sans-serif"] } } },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1
+              class="font-bold text-white tracking-wide text-base leading-tight"
+            >
+              MBG System
+            </h1>
+            <p class="text-xs text-sky-400 font-medium">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-chart-pie w-5 text-center"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="./barang.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-stacked w-5 text-center"></i
+            ><span>Kelola Barang</span></a
+          >
+          <a
+            href="./stok.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-packing w-5 text-center"></i
+            ><span>Stok Barang</span></a
+          >
+          <a
+            href="./menu.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-utensils w-5 text-center"></i
+            ><span>Menu &amp; AKG</span></a
+          >
+          <a
+            href="./supplier.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-truck-field w-5 text-center"></i
+            ><span>Data Supplier</span></a
+          >
+          <a
+            href="./pm.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-hospital-user w-5 text-center"></i
+            ><span>Penerima Manfaat</span></a
+          >
+          <a
+            href="./dokumen.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-file-contract w-5 text-center"></i
+            ><span>Dokumen &amp; LPJ</span></a
+          >
+          <a
+            href="./user.html"
+            id="nav-users"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl bg-sky-600 text-white shadow-md shadow-sky-600/30"
+            ><i class="fa-solid fa-users-gear w-5 text-center"></i
+            ><span>Pengguna</span></a
+          >
+          <a
+            href="./setting.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span
+          ><span
+            class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button
+          id="installAppBtn"
+          type="button"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"
+        >
+          <i class="fa-solid fa-download"></i><span>Install aplikasi</span>
+        </button>
+        <p class="text-[11px]">Kementerian / Badan Gizi Nasional</p>
+      </div>
+    </aside>
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+    <div class="flex-1 min-w-0 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-5 px-6 sm:px-10 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2 class="text-xl font-bold tracking-tight">
+              Pengguna &amp; Hak Akses
+            </h2>
+            <p class="text-xs text-slate-500 hidden sm:block">
+              Kelola akun Google yang boleh menggunakan aplikasi
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i
+            ><span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer"></div>
+        </div>
+      </header>
+      <main class="flex-1 p-6 sm:p-10 max-w-7xl w-full mx-auto space-y-6">
+        <section
+          class="rounded-2xl border border-sky-200 bg-sky-50 p-5 text-sm text-sky-900"
+        >
+          <div class="flex gap-3">
+            <i class="fa-solid fa-shield-halved mt-0.5"></i>
+            <div>
+              <b>Akses terbatas.</b> Hanya email yang terdaftar dan aktif yang
+              bisa masuk. Super Admin mengelola akun; Admin Logistik mengelola
+              barang, stok, menu, dan supplier.
+            </div>
+          </div>
+        </section>
+        <section
+          class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          >
+            <div>
+              <h3 class="font-bold text-base">Daftar akun diizinkan</h3>
+              <p class="text-xs text-slate-500 mt-1">
+                Atur role dan aktif/nonaktif akun Google.
+              </p>
+            </div>
+            <button
+              type="button"
+              onclick="openAppUserModal()"
+              class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs rounded-xl shadow-md"
+            >
+              <i class="fa-solid fa-user-plus"></i> Tambah Pengguna
+            </button>
+          </div>
+        </section>
+        <section
+          class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden"
+        >
+          <div class="overflow-x-auto custom-scrollbar">
+            <table
+              class="w-full min-w-[760px] text-left text-xs text-slate-600"
+            >
+              <thead
+                class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider"
+              >
+                <tr>
+                  <th class="px-5 py-4">Email Google</th>
+                  <th class="px-5 py-4">Role</th>
+                  <th class="px-5 py-4">Status</th>
+                  <th class="px-5 py-4">Dibuat</th>
+                  <th class="px-5 py-4 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody" class="divide-y divide-slate-100">
+                <tr>
+                  <td colspan="5" class="px-5 py-10 text-center text-sky-700">
+                    <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat
+                    akun...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            id="usersPagination"
+            class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100 px-5 py-4"
+          ></div>
+        </section>
+      </main>
+    </div>
+    <div
+      id="modalAppUser"
+      onclick="if (event.target === this) closeAppUserModal();"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+    >
+      <div
+        class="bg-white rounded-2xl w-full max-w-lg p-6 shadow-2xl border border-slate-200"
+      >
+        <div
+          class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5"
+        >
+          <div>
+            <h3 id="appUserModalTitle" class="text-base font-bold">
+              Tambah Pengguna
+            </h3>
+            <p class="text-xs text-slate-500 mt-1">
+              Email harus sama dengan akun Google pengguna.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="closeAppUserModal()"
+            class="w-8 h-8 rounded-full bg-slate-100 text-slate-500"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form
+          id="formAppUser"
+          onsubmit="saveAppUser(event)"
+          class="space-y-4 text-sm"
+        >
+          <input id="appUserOriginalEmail" type="hidden" />
+          <div>
+            <label
+              for="appUserEmail"
+              class="block text-xs font-semibold text-slate-700 mb-1.5"
+              >Email Google</label
+            ><input
+              id="appUserEmail"
+              type="email"
+              required
+              placeholder="nama@gmail.com"
+              class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+            />
+          </div>
+          <div>
+            <label
+              for="appUserRole"
+              class="block text-xs font-semibold text-slate-700 mb-1.5"
+              >Role</label
+            ><select
+              id="appUserRole"
+              required
+              class="w-full px-3.5 py-3 border border-slate-200 rounded-xl bg-white outline-none focus:ring-2 focus:ring-sky-500"
+            >
+              <option value="admin_logistik">Admin Logistik</option>
+              <option value="super_admin">Super Admin</option>
+            </select>
+          </div>
+          <label
+            class="flex items-center gap-3 rounded-xl border border-slate-200 p-3"
+            ><input
+              id="appUserActive"
+              type="checkbox"
+              class="h-4 w-4 accent-sky-600"
+            /><span
+              ><b class="block text-xs text-slate-700">Akun aktif</b
+              ><small class="text-[11px] text-slate-500"
+                >Matikan untuk mencabut login tanpa menghapus riwayat.</small
+              ></span
+            ></label
+          >
+          <div class="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onclick="closeAppUserModal()"
+              class="px-4 py-2.5 bg-slate-100 text-slate-700 font-semibold text-xs rounded-xl"
+            >
+              Batal</button
+            ><button
+              id="saveAppUserBtn"
+              type="submit"
+              class="px-5 py-2.5 bg-sky-600 text-white font-semibold text-xs rounded-xl"
+            >
+              <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="toastContainer"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
+    ></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

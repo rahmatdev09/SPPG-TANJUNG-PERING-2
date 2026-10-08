@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null && request.auth.token.email is string;
+    }
+
+    function accountPath() {
+      return /databases/$(database)/documents/app_users/$(request.auth.token.email);
+    }
+
+    function hasActiveAccount() {
+      return signedIn()
+        && exists(accountPath())
+        && get(accountPath()).data.active == true
+        && get(accountPath()).data.role in ['super_admin', 'admin_logistik'];
+    }
+
+    function isSuperAdmin() {
+      return hasActiveAccount() && get(accountPath()).data.role == 'super_admin';
+    }
+
+    function isLogisticsAdmin() {
+      return hasActiveAccount() && get(accountPath()).data.role == 'admin_logistik';
+    }
+
+    function hasPremiumAppAccess() {
+      return hasActiveAccount()
+        && (
+          get(accountPath()).data.role == 'super_admin'
+          || get(accountPath()).data.plan == 'premium'
+        );
+    }
+
+    match /app_users/{email} {
+      allow get: if signedIn() && (email == request.auth.token.email || isSuperAdmin());
+      allow list: if isSuperAdmin();
+      allow create, delete: if isSuperAdmin() && email != request.auth.token.email;
+      allow update: if isSuperAdmin() && email != request.auth.token.email;
+    }
+
+    match /mbg_items/{itemId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /operational_items/{itemId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /master_items/{itemId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /inventory_items/{itemId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /app_metadata/{metadataId} {
+      allow get: if hasPremiumAppAccess();
+      allow create, update: if hasPremiumAppAccess();
+    }
+
+    match /app_settings/{settingId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /suppliers/{supplierId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /menus/{menuId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /limbah/{limbahId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /payment_letters/{letterId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /barang_arrival_photos/{photoId} {
+      allow read, write: if hasPremiumAppAccess();
+    }
+
+    match /pms/{pmId} {
+      allow read: if hasPremiumAppAccess();
+      allow write: if isSuperAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

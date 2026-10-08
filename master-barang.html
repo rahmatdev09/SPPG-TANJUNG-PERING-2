@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master Barang | MBG System</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="min-h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1
+              class="font-bold text-white tracking-wide text-base leading-tight"
+            >
+              MBG System
+            </h1>
+            <p class="text-xs text-sky-400 font-medium">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            id="nav-dashboard"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-chart-pie w-5 text-center"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="./barang.html"
+            id="nav-barang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-stacked w-5 text-center"></i
+            ><span>Kelola Barang</span></a
+          >
+          <a
+            href="./stok.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-packing w-5 text-center"></i
+            ><span>Stok Barang</span></a
+          >
+          <a
+            href="./menu.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-utensils w-5 text-center"></i
+            ><span>Menu &amp; AKG</span></a
+          >
+          <a
+            href="./supplier.html"
+            id="nav-supplier"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-truck-field w-5 text-center"></i
+            ><span>Data Supplier</span></a
+          >
+          <a
+            href="./pm.html"
+            id="nav-pm"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-hospital-user w-5 text-center"></i
+            ><span>Penerima Manfaat</span></a
+          >
+          <a
+            href="./dokumen.html"
+            id="nav-dokumen"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-file-contract w-5 text-center"></i
+            ><span>Dokumen &amp; LPJ</span></a
+          >
+          <a
+            href="./user.html"
+            id="nav-users"
+            class="nav-item hidden flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-users-gear w-5 text-center"></i
+            ><span>Pengguna</span></a
+          >
+          <a
+            href="./setting.html"
+            id="nav-setting"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            id="nav-tentang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span
+          ><span
+            class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button
+          id="installAppBtn"
+          type="button"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300"
+        >
+          <i class="fa-solid fa-download"></i><span>Install aplikasi</span>
+        </button>
+        <p class="text-[11px]">Kementerian / Badan Gizi Nasional</p>
+      </div>
+    </aside>
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+    <div class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-5 px-6 sm:px-10 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl"
+            aria-label="Buka menu"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2 id="pageTitle" class="text-xl font-bold tracking-tight">
+              Master Barang
+            </h2>
+            <p class="text-xs text-slate-500 mt-1 hidden sm:block">
+              Katalog pilihan barang bahan baku dan operasional
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i
+            ><span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer"></div>
+        </div>
+      </header>
+      <main class="flex-1 p-5 sm:p-8 max-w-7xl w-full mx-auto space-y-5">
+        <section
+          class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+        >
+          <div
+            class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <label class="block min-w-0 flex-1"
+              ><span
+                class="mb-1.5 block text-[10px] font-bold uppercase tracking-wide text-slate-400"
+                >Cari master barang</span
+              ><input
+                id="masterBarangSearch"
+                type="search"
+                oninput="renderMasterBarangTable()"
+                placeholder="Nama barang atau satuan..."
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm outline-none focus:border-sky-300 focus:bg-white focus:ring-2 focus:ring-sky-500/20"
+            /></label>
+            <div class="grid grid-cols-2 gap-2 sm:flex">
+              <label class="block"
+                ><span
+                  class="mb-1.5 block text-[10px] font-bold uppercase tracking-wide text-slate-400"
+                  >Kategori</span
+                ><select
+                  id="masterBarangFilterCategory"
+                  onchange="renderMasterBarangTable()"
+                  class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm"
+                >
+                  <option value="ALL">Semua</option>
+                  <option value="bahan_baku">Bahan Baku</option>
+                  <option value="operasional">Operasional</option>
+                </select></label
+              ><button
+                type="button"
+                onclick="openMasterBarangModal()"
+                class="self-end rounded-xl bg-sky-700 px-4 py-3 text-xs font-bold text-white hover:bg-sky-800"
+              >
+                <i class="fa-solid fa-plus mr-1"></i>Tambah Master
+              </button>
+            </div>
+          </div>
+        </section>
+        <section
+          class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+        >
+          <div class="overflow-x-auto">
+            <table
+              class="w-full min-w-[640px] text-left text-xs text-slate-600"
+            >
+              <thead
+                class="border-b border-slate-200 bg-slate-50 text-[10px] font-bold uppercase tracking-wide text-slate-500"
+              >
+                <tr>
+                  <th class="px-5 py-4">Nama Barang</th>
+                  <th class="px-5 py-4">Kategori</th>
+                  <th class="px-5 py-4">Satuan</th>
+                  <th class="px-5 py-4">Diperbarui</th>
+                  <th class="px-5 py-4 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody
+                id="masterBarangTableBody"
+                class="divide-y divide-slate-100"
+              >
+                <tr>
+                  <td colspan="5" class="px-5 py-10 text-center text-sky-700">
+                    <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat
+                    master barang...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            id="masterBarangPagination"
+            class="flex flex-col gap-3 border-t border-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+          ></div>
+        </section>
+      </main>
+    </div>
+    <div
+      id="masterBarangModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+    >
+      <section
+        class="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl sm:p-6"
+      >
+        <div
+          class="mb-5 flex items-start justify-between gap-3 border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 id="masterBarangModalTitle" class="font-bold">
+              Tambah Master Barang
+            </h3>
+            <p class="mt-1 text-xs text-slate-500">
+              Barang ini akan tersedia pada form sesuai kategorinya.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="closeMasterBarangModal()"
+            aria-label="Tutup"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-600"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form
+          id="masterBarangForm"
+          onsubmit="saveMasterBarang(event)"
+          class="space-y-4 text-xs"
+        >
+          <input id="masterBarangId" type="hidden" /><label class="block"
+            ><span class="mb-1.5 block font-semibold">Kategori barang</span
+            ><select
+              id="masterBarangCategory"
+              required
+              class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3"
+            >
+              <option value="bahan_baku">Bahan Baku</option>
+              <option value="operasional">Operasional</option>
+            </select></label
+          ><label class="block"
+            ><span class="mb-1.5 block font-semibold">Nama barang</span
+            ><input
+              id="masterBarangName"
+              required
+              maxlength="140"
+              placeholder="Contoh: Beras, masker, tali rafia"
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-3" /></label
+          ><label class="block"
+            ><span class="mb-1.5 block font-semibold">Satuan</span
+            ><input
+              id="masterBarangUnit"
+              required
+              maxlength="40"
+              placeholder="kg, dus, ball, pcs"
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-3"
+          /></label>
+          <div class="flex justify-end gap-2 border-t border-slate-100 pt-4">
+            <button
+              type="button"
+              onclick="closeMasterBarangModal()"
+              class="rounded-xl bg-slate-100 px-4 py-2.5 font-semibold text-slate-600"
+            >
+              Batal</button
+            ><button
+              type="submit"
+              class="rounded-xl bg-sky-700 px-4 py-2.5 font-bold text-white"
+            >
+              Simpan Master
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <div
+      id="toastContainer"
+      class="pointer-events-none fixed bottom-5 right-5 z-[60] flex flex-col gap-2"
+    ></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

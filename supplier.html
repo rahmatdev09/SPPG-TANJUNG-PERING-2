@@ -1,0 +1,445 @@
+﻿<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Supplier MBG</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-sky-500/20"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1
+              class="font-bold text-white tracking-wide text-base leading-tight"
+            >
+              MBG System
+            </h1>
+            <p class="text-xs text-sky-400 font-medium">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            id="nav-dashboard"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+            <span>Dashboard</span>
+          </a>
+          <a
+            href="./barang.html"
+            id="nav-barang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-boxes-stacked w-5 text-center"></i>
+            <span>Kelola Barang</span>
+          </a>
+          <a href="./stok.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-boxes-packing w-5 text-center"></i><span>Stok Barang</span></a>
+          <a href="./menu.html" id="nav-menu" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-utensils w-5 text-center"></i><span>Menu &amp; AKG</span></a>
+          
+          <a
+            href="./supplier.html"
+            id="nav-supplier"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 bg-sky-600 text-white shadow-md shadow-sky-600/30"
+          >
+            <i class="fa-solid fa-truck-field w-5 text-center"></i>
+            <span>Data Supplier</span>
+          </a>
+          <a
+            href="./pm.html"
+            id="nav-pm"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-hospital-user w-5 text-center"></i>
+            <span>Penerima Manfaat</span>
+          </a>
+          <a
+            href="./dokumen.html"
+            id="nav-dokumen"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-file-contract w-5 text-center"></i>
+            <span>Dokumen & LPJ</span>
+          </a>
+          <a href="./user.html" id="nav-users" class="nav-item hidden flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-users-gear w-5 text-center"></i><span>Pengguna</span></a>
+          <a
+            href="./setting.html"
+            id="nav-setting"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            id="nav-tentang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span>
+          <span
+            class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button id="installAppBtn" type="button" class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"><i class="fa-solid fa-download"></i><span>Install aplikasi</span></button><p class="text-[11px] text-slate-500">
+          Kementerian / Badan Gizi Nasional
+        </p>
+      </div>
+    </aside>
+
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+
+    <div class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-5 px-6 sm:px-10 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2
+              id="pageTitle"
+              class="text-xl font-bold text-slate-800 tracking-tight"
+            >
+              Daftar Supplier Mitra
+            </h2>
+            <p id="pageSubTitle" class="text-xs text-slate-500 hidden sm:block">
+              Pemasok bahan makanan bergizi dan detail perbankan
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i>
+            <span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer">
+            <button
+              onclick="handleLoginClick()"
+              class="flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium text-xs rounded-xl shadow-md shadow-sky-600/20 transition-all"
+            >
+              <i class="fa-brands fa-google text-sm"></i>
+              <span>Login Google</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 p-6 sm:p-10 max-w-7xl w-full mx-auto space-y-8">
+        <section class="space-y-6 animate-fadeIn">
+          <div
+            class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm"
+          >
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">
+                Daftar Supplier Mitra
+              </h3>
+              <p class="text-xs text-slate-500">
+                Pemasok bahan makanan bergizi dan detail perbankan
+              </p>
+            </div>
+            <button
+              onclick="openModalSupplier()"
+              class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl shadow-lg shadow-emerald-600/20 transition-all"
+            >
+              <i class="fa-solid fa-user-plus text-xs"></i>
+              <span>Tambah Supplier</span>
+            </button>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden"
+          >
+            <div class="overflow-x-auto custom-scrollbar">
+              <table class="w-full text-left text-xs text-slate-600">
+                <thead
+                  class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider"
+                >
+                  <tr>
+                    <th class="py-4 px-5">Nama Supplier</th>
+                    <th class="py-4 px-5">Kontak / No HP</th>
+                    <th class="py-4 px-5">Alamat / Lokasi</th>
+                    <th class="py-4 px-5">Kategori Produk</th>
+                    <th class="py-4 px-5">Detail Perbankan</th>
+                    <th class="py-4 px-5 text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="supplierTableBody"
+                  class="divide-y divide-slate-100"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div
+      id="modalSupplier"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 relative mx-4"
+      >
+        <div
+          class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4"
+        >
+          <h3
+            id="modalSupplierTitle"
+            class="text-base font-bold text-slate-800"
+          >
+            Tambah Supplier Mitra
+          </h3>
+          <button
+            onclick="closeModalSupplier()"
+            class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form
+          id="formSupplier"
+          onsubmit="saveSupplier(event)"
+          class="space-y-3.5 text-xs"
+        >
+          <input type="hidden" id="supplierId" />
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1"
+              >Nama Supplier / PT / UD</label
+            >
+            <input
+              type="text"
+              id="inputNamaSupplier"
+              required
+              placeholder="PT Sumber Gizi Nusantara"
+              class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1"
+                >Kontak / Telepon</label
+              >
+              <input
+                type="text"
+                id="inputKontakSupplier"
+                required
+                placeholder="08123456789"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+              />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1"
+                >Kategori Produk</label
+              >
+              <input
+                type="text"
+                id="inputKategoriSupplier"
+                required
+                placeholder="Beras & Palawija"
+                class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1"
+              >Alamat Lengkap</label
+            >
+            <input
+              type="text"
+              id="inputAlamatSupplier"
+              required
+              placeholder="Jl. Industri Raya No. 45, Jakarta"
+              class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+            />
+          </div>
+
+          <div
+            class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3"
+          >
+            <p
+              class="font-bold text-slate-700 flex items-center gap-1.5 text-xs"
+            >
+              <i class="fa-solid fa-building-columns text-emerald-600"></i>
+              Informasi Rekening Bank
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-600 mb-1"
+                  >Nama Bank</label
+                >
+                <input
+                  type="text"
+                  id="inputNamaBank"
+                  required
+                  placeholder="Bank BRI / BCA / Mandiri"
+                  class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-white focus:ring-2 focus:ring-emerald-500 outline-none"
+                />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-600 mb-1"
+                  >Nomor Rekening</label
+                >
+                <input
+                  type="text"
+                  id="inputNoRekening"
+                  required
+                  placeholder="0123456789"
+                  class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-white focus:ring-2 focus:ring-emerald-500 outline-none"
+                />
+              </div>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1"
+                >Nama Pemilik Rekening</label
+              >
+              <input
+                type="text"
+                id="inputNamaRekening"
+                required
+                placeholder="PT Sumber Gizi Nusantara"
+                class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-white focus:ring-2 focus:ring-emerald-500 outline-none"
+              />
+            </div>
+          </div>
+
+          <div
+            class="pt-3 flex items-center justify-end gap-3 border-t border-slate-100"
+          >
+            <button
+              type="button"
+              onclick="closeModalSupplier()"
+              class="px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-xl font-medium"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-md transition-all"
+            >
+              Simpan Supplier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="modalConfirmDelete"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center mx-4"
+      >
+        <div
+          class="w-14 h-14 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"
+        >
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 class="text-base font-bold text-slate-800 mb-1">
+          Konfirmasi Penghapusan
+        </h3>
+        <p id="deleteConfirmText" class="text-xs text-slate-500 mb-6">
+          Apakah Anda yakin ingin menghapus data ini secara permanen?
+        </p>
+
+        <div class="flex items-center justify-center gap-3">
+          <button
+            onclick="closeConfirmDelete()"
+            class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-all w-1/2"
+          >
+            Batal
+          </button>
+          <button
+            id="deleteConfirmBtn"
+            onclick="executePendingDelete()"
+            class="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl shadow-md transition-all w-1/2"
+          >
+            Ya, Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="toastContainer"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
+    ></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

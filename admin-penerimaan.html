@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Admin Logistik MBG</title>
+    <link rel="manifest" href="./admin-pwa.webmanifest" />
+    <meta name="theme-color" content="#0369a1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="MBG Logistik" />
+    <link rel="apple-touch-icon" href="./assets/icon-192.svg" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="admin-pwa-shell min-h-[100dvh] bg-slate-50 text-slate-800 antialiased"
+  >
+    <header
+      class="admin-pwa-header sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-6 sm:py-5"
+    >
+      <div
+        class="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-5"
+      >
+        <div class="min-w-0">
+          <div>
+            <h1
+              id="adminPwaPageTitle"
+              class="truncate text-lg font-bold tracking-tight text-slate-800 sm:text-xl"
+            >
+              Dashboard Admin
+            </h1>
+            <p
+              id="adminPwaPageSubtitle"
+              class="mt-0.5 truncate text-xs text-slate-500"
+            >
+              Ringkasan logistik MBG
+            </p>
+          </div>
+        </div>
+        <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div
+            class="hidden items-center gap-2 rounded-xl border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600 md:flex"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i>
+            <span id="currentDateStr">--</span>
+          </div>
+          <button
+            id="installAppBtn"
+            type="button"
+            class="hidden min-h-10 items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-800 transition hover:bg-emerald-100"
+          >
+            <i class="fa-solid fa-download"></i><span>Pasang</span>
+          </button>
+          <div id="authContainer">
+            <button
+              onclick="handleLoginClick()"
+              class="rounded-xl bg-sky-700 px-3 py-2 text-[11px] font-semibold text-white"
+            >
+              <i class="fa-brands fa-google mr-1"></i>Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main
+      id="adminDashboardPanel"
+      class="mx-auto max-w-3xl space-y-5 px-4 pb-28 pt-5 sm:px-6 sm:pt-8"
+    >
+      <section
+        class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+      >
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Ringkasan barang
+        </p>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <article class="rounded-xl bg-sky-50 p-4">
+            <p class="text-[11px] font-medium text-sky-700">Jenis barang</p>
+            <p
+              id="adminDashTotalBarang"
+              class="mt-1 text-2xl font-extrabold text-sky-900"
+            >
+              <i class="fa-solid fa-spinner fa-spin text-base"></i>
+            </p>
+          </article>
+          <article class="rounded-xl bg-amber-50 p-4">
+            <p class="text-[11px] font-medium text-amber-700">Masih pending</p>
+            <p
+              id="adminDashPending"
+              class="mt-1 text-2xl font-extrabold text-amber-900"
+            >
+              <i class="fa-solid fa-spinner fa-spin text-base"></i>
+            </p>
+          </article>
+          <article class="rounded-xl bg-emerald-50 p-4">
+            <p class="text-[11px] font-medium text-emerald-700">
+              Penerimaan hari ini
+            </p>
+            <p
+              id="adminDashArrivalsToday"
+              class="mt-1 text-2xl font-extrabold text-emerald-900"
+            >
+              <i class="fa-solid fa-spinner fa-spin text-base"></i>
+            </p>
+          </article>
+          <article class="rounded-xl bg-violet-50 p-4">
+            <p class="text-[11px] font-medium text-violet-700">Stok tersedia</p>
+            <p
+              id="adminDashStockAvailable"
+              class="mt-1 text-2xl font-extrabold text-violet-900"
+            >
+              <i class="fa-solid fa-spinner fa-spin text-base"></i>
+            </p>
+          </article>
+          <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <p class="text-[11px] font-medium text-amber-700">Perlu restok</p>
+            <p
+              id="adminDashLowStock"
+              class="mt-1 text-2xl font-extrabold text-amber-900"
+            >
+              <i class="fa-solid fa-spinner fa-spin text-base"></i>
+            </p>
+          </article>
+        </div>
+      </section>
+      <section
+        class="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm"
+      >
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <h2 class="font-bold">Peringatan stok minimum</h2>
+            <p class="mt-1 text-xs text-slate-500">
+              Barang dengan saldo sama dengan atau di bawah batas minimum.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="showAdminPwaTab('stock')"
+            class="shrink-0 text-xs font-semibold text-sky-700"
+          >
+            Lihat stok <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+        <div id="adminDashLowStockList" class="mt-3">
+          <p class="py-3 text-center text-xs text-slate-400">
+            Memuat peringatan stok...
+          </p>
+        </div>
+      </section>
+      <section
+        class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="font-bold">Penerimaan terbaru</h2>
+            <p class="mt-1 text-xs text-slate-500">
+              Catatan barang yang terakhir diterima
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="showAdminPwaTab('arrival')"
+            class="text-xs font-semibold text-sky-700"
+          >
+            Lihat semua <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+        <div id="adminDashRecent" class="mt-3 space-y-2">
+          <p class="py-5 text-center text-xs text-slate-400">
+            <i class="fa-solid fa-spinner fa-spin mr-1"></i>Memuat penerimaan...
+          </p>
+        </div>
+      </section>
+      <button
+        type="button"
+        onclick="showAdminPwaTab('arrival')"
+        class="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-700 px-4 py-3 text-sm font-bold text-white shadow-sm"
+      >
+        <i class="fa-solid fa-camera"></i> Catat Penerimaan Barang
+      </button>
+    </main>
+    <main
+      id="adminArrivalPanel"
+      class="mx-auto hidden max-w-3xl space-y-5 px-4 pb-28 pt-5 sm:px-6 sm:pt-8"
+    >
+      <section class="rounded-2xl border border-sky-100 bg-sky-50 p-4 sm:p-5">
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-circle-info mt-0.5 text-sky-700"></i>
+          <div>
+            <h2 class="text-sm font-bold text-sky-950">
+              Catat penerimaan barang
+            </h2>
+            <p class="mt-1 text-xs leading-relaxed text-sky-800">
+              Daftar menampilkan barang berstatus Pending pada tanggal yang
+              dipilih. Foto dikompres di perangkat lalu disimpan sebagai Base64
+              di Firestore.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div class="flex items-end justify-between gap-3">
+        <div>
+          <h2 class="font-bold">Barang Pending</h2>
+          <p id="adminArrivalCount" class="mt-1 text-xs text-slate-500">
+            Memuat data...
+          </p>
+        </div>
+        <button
+          type="button"
+          onclick="showAdminPwaTab('stock')"
+          class="text-xs font-semibold text-sky-700"
+        >
+          <i class="fa-solid fa-boxes-stacked mr-1"></i>Lihat stok
+        </button>
+      </div>
+      <div
+        id="adminArrivalTypeSelector"
+        class="grid grid-cols-2 gap-1 rounded-xl border border-slate-200 bg-slate-100 p-1"
+        role="group"
+        aria-label="Pilih jenis barang penerimaan"
+      >
+        <button
+          id="adminArrivalTypeRaw"
+          type="button"
+          aria-pressed="true"
+          onclick="setAdminArrivalType('bahan_baku')"
+          class="rounded-lg bg-white px-3 py-2.5 text-xs font-bold text-sky-800 shadow-sm transition"
+        >
+          <i class="fa-solid fa-carrot mr-1.5"></i>Bahan Baku
+        </button>
+        <button
+          id="adminArrivalTypeOperational"
+          type="button"
+          aria-pressed="false"
+          onclick="setAdminArrivalType('operasional')"
+          class="rounded-lg px-3 py-2.5 text-xs font-bold text-slate-500 transition hover:text-slate-700"
+        >
+          <i class="fa-solid fa-toolbox mr-1.5"></i>Operasional
+        </button>
+      </div>
+      <input id="adminArrivalType" type="hidden" value="bahan_baku" />
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label
+            for="adminArrivalFilterDate"
+            class="mb-1.5 block text-xs font-semibold text-slate-600"
+            >Dari tanggal barang</label
+          ><input
+            id="adminArrivalFilterDate"
+            type="date"
+            onchange="renderAdminArrivalPage()"
+            class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-500"
+          />
+        </div>
+        <div>
+          <label
+            for="adminArrivalFilterDateTo"
+            class="mb-1.5 block text-xs font-semibold text-slate-600"
+            >Sampai tanggal</label
+          ><input
+            id="adminArrivalFilterDateTo"
+            type="date"
+            onchange="renderAdminArrivalPage()"
+            class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-500"
+          />
+        </div>
+      </div>
+      <div class="relative">
+        <i
+          class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400"
+        ></i
+        ><input
+          id="adminArrivalSearch"
+          oninput="renderAdminArrivalPage()"
+          type="search"
+          placeholder="Cari nama barang..."
+          class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-4 text-sm outline-none focus:ring-2 focus:ring-sky-500"
+        />
+      </div>
+      <section id="adminArrivalList" class="space-y-3" aria-live="polite">
+        <div
+          class="rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-400"
+        >
+          <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat daftar
+          barang...
+        </div>
+      </section>
+      <p class="pb-5 text-center text-[10px] text-slate-400">
+        Gulir ke bawah untuk memuat barang Pending berikutnya.
+      </p>
+    </main>
+    <main
+      id="adminStockPanel"
+      class="mx-auto hidden max-w-3xl space-y-5 px-4 pb-28 pt-5 sm:px-6 sm:pt-8"
+    >
+      <section class="rounded-2xl border border-slate-200 bg-white p-4">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h2 class="font-bold">Stok Barang</h2>
+            <p class="mt-1 text-xs text-slate-500">
+              Pantau saldo dan catat hasil stok opname.
+            </p>
+          </div>
+          <div class="flex shrink-0 gap-2">
+            <button
+              type="button"
+              onclick="openStocktakeReport()"
+              class="rounded-xl bg-indigo-50 px-3 py-2.5 text-xs font-bold text-indigo-700"
+            >
+              <i class="fa-solid fa-clipboard-list mr-1"></i>Rekap</button
+            ><button
+              type="button"
+              onclick="openAdminPwaAddStockItem()"
+              class="rounded-xl bg-sky-700 px-3 py-2.5 text-xs font-bold text-white"
+            >
+              <i class="fa-solid fa-plus mr-1"></i>Tambah
+            </button>
+          </div>
+        </div>
+        <label class="relative mt-4 block"
+          ><i
+            class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400"
+          ></i
+          ><input
+            id="adminPwaStockSearch"
+            oninput="renderAdminPwaStock()"
+            type="search"
+            placeholder="Cari barang..."
+            class="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-9 pr-4 text-sm outline-none focus:ring-2 focus:ring-sky-500"
+        /></label>
+        <div class="mt-4 border-t border-slate-100 pt-4">
+          <h3 class="text-xs font-bold text-slate-700">Unduh laporan stok</h3>
+          <p class="mt-1 text-[10px] text-slate-500">
+            Pilih satu tanggal transaksi masuk, keluar, dan opname.
+          </p>
+          <div class="mt-3 grid grid-cols-[1fr_auto] items-end gap-2">
+            <label class="text-[10px] font-semibold text-slate-500"
+              >Tanggal laporan<input
+                id="stockReportDate"
+                type="date"
+                class="mt-1 block w-full rounded-lg border border-slate-200 px-3 py-2 text-xs" /></label
+            ><button
+              type="button"
+              onclick="downloadStockReport()"
+              class="rounded-xl bg-emerald-600 px-3 py-2.5 text-xs font-bold text-white"
+            >
+              <i class="fa-solid fa-file-pdf mr-1"></i>Download PDF
+            </button>
+          </div>
+        </div>
+      </section>
+      <section id="adminPwaStockList" class="space-y-3">
+        <div
+          class="rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-400"
+        >
+          <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat stok...
+        </div>
+      </section>
+    </main>
+    <main
+      id="adminProfilePanel"
+      class="mx-auto hidden max-w-3xl space-y-5 px-4 pb-28 pt-5 sm:px-6 sm:pt-8"
+    >
+      <section
+        class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <img
+            id="adminProfilePhoto"
+            src="./assets/icon-192.svg"
+            alt="Foto profil"
+            class="h-14 w-14 rounded-2xl border border-slate-200 object-cover"
+          />
+          <div class="min-w-0">
+            <h2 id="adminProfileName" class="truncate font-bold">Pengguna</h2>
+            <p
+              id="adminProfileEmail"
+              class="mt-1 break-all text-xs text-slate-500"
+            >
+              -
+            </p>
+            <span
+              id="adminProfileRole"
+              class="mt-2 inline-flex rounded-full bg-sky-100 px-2.5 py-1 text-[10px] font-bold text-sky-700"
+              >-</span
+            >
+          </div>
+        </div>
+      </section>
+      <section class="rounded-2xl border border-slate-200 bg-white p-5">
+        <h3 class="font-bold">Akun aplikasi</h3>
+        <p class="mt-1 text-xs leading-5 text-slate-500">
+          PWA Admin Logistik terhubung dengan akun Google yang terdaftar dan
+          aktif di MBG System.
+        </p>
+        <button
+          type="button"
+          onclick="handleLogoutClick()"
+          class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700"
+        >
+          <i class="fa-solid fa-right-from-bracket"></i> Keluar
+        </button>
+      </section>
+    </main>
+    <div
+      id="stockUpdateModal"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+    >
+      <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+        <div
+          class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 class="font-bold">Update Stok</h3>
+            <p id="stockUpdateItemName" class="mt-1 text-xs text-slate-500"></p>
+          </div>
+          <button
+            type="button"
+            onclick="closeStockModal('stockUpdateModal')"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form onsubmit="submitStockUpdate(event)" class="space-y-4 text-xs">
+          <input id="stockUpdateItemId" type="hidden" />
+          <div>
+            <label for="stockUpdateType" class="mb-1 block font-semibold"
+              >Kategori transaksi</label
+            ><select
+              id="stockUpdateType"
+              required
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-3"
+            >
+              <option value="masuk">Barang Masuk</option>
+              <option value="keluar">Barang Keluar</option>
+            </select>
+          </div>
+          <div>
+            <label for="stockUpdateQuantity" class="mb-1 block font-semibold"
+              >Jumlah</label
+            ><input
+              id="stockUpdateQuantity"
+              type="number"
+              min="0.01"
+              step="any"
+              required
+              inputmode="decimal"
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-3"
+            />
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label for="stockUpdateDate" class="mb-1 block font-semibold"
+                >Tanggal</label
+              ><input
+                id="stockUpdateDate"
+                type="date"
+                required
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-3"
+              />
+            </div>
+            <div>
+              <label for="stockUpdateNote" class="mb-1 block font-semibold"
+                >Catatan</label
+              ><input
+                id="stockUpdateNote"
+                maxlength="200"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-3"
+                placeholder="Opsional"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end gap-3 border-t border-slate-100 pt-3">
+            <button
+              type="button"
+              onclick="closeStockModal('stockUpdateModal')"
+              class="rounded-xl bg-slate-100 px-4 py-2.5 font-semibold text-slate-600"
+            >
+              Batal</button
+            ><button
+              id="adminPwaStockSaveButton"
+              type="submit"
+              class="rounded-xl bg-sky-700 px-5 py-2.5 font-bold text-white"
+            >
+              Simpan Perubahan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="stocktakeModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+    >
+      <div
+        class="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl"
+      >
+        <div
+          class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 class="font-bold">Stok Opname</h3>
+            <p id="stocktakeItemName" class="mt-1 text-xs text-slate-500"></p>
+          </div>
+          <button
+            type="button"
+            onclick="closeStockModal('stocktakeModal')"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form onsubmit="submitStocktake(event)" class="space-y-4 text-xs">
+          <input id="stocktakeItemId" type="hidden" />
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                for="stocktakeSystemBalance"
+                class="mb-1 block font-semibold"
+                >Saldo menurut sistem</label
+              ><input
+                id="stocktakeSystemBalance"
+                readonly
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 font-bold text-slate-500"
+              />
+            </div>
+            <div>
+              <label
+                for="stocktakePhysicalBalance"
+                class="mb-1 block font-semibold"
+                >Hasil hitung fisik</label
+              ><input
+                id="stocktakePhysicalBalance"
+                type="number"
+                min="0"
+                step="any"
+                required
+                inputmode="decimal"
+                oninput="updateStocktakeDifference()"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3 font-bold text-slate-800"
+              />
+            </div>
+          </div>
+          <div id="stocktakeDifferenceCard" class="rounded-xl bg-slate-50 p-3">
+            <p class="text-slate-500">Selisih opname</p>
+            <p
+              id="stocktakeDifference"
+              class="mt-1 text-sm font-extrabold text-slate-700"
+            >
+              0
+            </p>
+          </div>
+          <div>
+            <label for="stocktakeDate" class="mb-1 block font-semibold"
+              >Tanggal opname</label
+            ><input
+              id="stocktakeDate"
+              type="date"
+              required
+              class="w-full rounded-xl border border-slate-200 px-3 py-3"
+            />
+          </div>
+          <div>
+            <label for="stocktakeNote" class="mb-1 block font-semibold"
+              >Catatan / alasan selisih</label
+            ><textarea
+              id="stocktakeNote"
+              rows="3"
+              maxlength="300"
+              class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              placeholder="Wajib diisi jika ada selisih"
+            ></textarea>
+            <p id="stocktakeNoteHint" class="mt-1 text-[10px] text-slate-400">
+              Jelaskan penyebab jika jumlah fisik berbeda dari sistem.
+            </p>
+          </div>
+          <div class="flex gap-2 border-t border-slate-100 pt-3">
+            <button
+              type="button"
+              onclick="closeStockModal('stocktakeModal')"
+              class="flex-1 rounded-xl bg-slate-100 px-3 py-3 font-semibold text-slate-600"
+            >
+              Batal</button
+            ><button
+              id="stocktakeSubmitButton"
+              type="submit"
+              class="flex-1 rounded-xl bg-indigo-600 px-3 py-3 font-bold text-white"
+            >
+              Simpan Opname
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="stocktakeReportModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+    >
+      <div
+        class="max-h-[88dvh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl"
+      >
+        <div
+          class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 class="font-bold">Rekap Stok Opname</h3>
+            <p class="mt-1 text-xs text-slate-500">
+              Catatan hasil hitung fisik dan selisih stok.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="closeStockModal('stocktakeReportModal')"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div id="stocktakeReportList" class="space-y-3"></div>
+      </div>
+    </div>
+    <div
+      id="adminPwaAddStockModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+    >
+      <div
+        class="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl"
+      >
+        <div
+          class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 class="font-bold">Tambah Barang</h3>
+            <p class="mt-1 text-xs text-slate-500">
+              Barang dibuat di daftar persediaan terpisah dari Kelola Barang.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="closeStockModal('adminPwaAddStockModal')"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form
+          onsubmit="submitAdminPwaAddStockItem(event)"
+          class="space-y-3 text-xs"
+        >
+          <div>
+            <label for="adminPwaNewItemName" class="mb-1 block font-semibold"
+              >Nama barang</label
+            ><input
+              id="adminPwaNewItemName"
+              required
+              maxlength="120"
+              class="w-full rounded-xl border border-slate-200 px-3 py-3"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="adminPwaNewItemDate" class="mb-1 block font-semibold"
+                >Tanggal saldo awal</label
+              ><input
+                id="adminPwaNewItemDate"
+                type="date"
+                required
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label for="adminPwaNewItemType" class="mb-1 block font-semibold"
+                >Kategori</label
+              ><select
+                id="adminPwaNewItemType"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              >
+                <option>Utama</option>
+                <option>Tambahan</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                for="adminPwaNewItemOpeningStock"
+                class="mb-1 block font-semibold"
+                >Saldo awal</label
+              ><input
+                id="adminPwaNewItemOpeningStock"
+                type="number"
+                min="0"
+                step="any"
+                value="0"
+                required
+                inputmode="numeric"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label for="adminPwaNewItemUnit" class="mb-1 block font-semibold"
+                >Satuan</label
+              ><input
+                id="adminPwaNewItemUnit"
+                required
+                maxlength="30"
+                placeholder="kg, liter, dus"
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="adminPwaNewItemMinimum" class="mb-1 block font-semibold"
+              >Batas minimum stok
+              <span class="font-normal text-slate-400"
+                >(0 = nonaktif)</span
+              ></label
+            >
+            <input
+              id="adminPwaNewItemMinimum"
+              type="number"
+              min="0"
+              step="any"
+              value="0"
+              required
+              class="w-full rounded-xl border border-slate-200 px-3 py-3"
+            />
+          </div>
+          <div class="flex gap-2 border-t border-slate-100 pt-3">
+            <button
+              type="button"
+              onclick="closeStockModal('adminPwaAddStockModal')"
+              class="flex-1 rounded-xl bg-slate-100 px-3 py-3 font-semibold text-slate-600"
+            >
+              Batal</button
+            ><button
+              id="adminPwaAddStockSaveButton"
+              type="submit"
+              class="flex-1 rounded-xl bg-sky-700 px-3 py-3 font-bold text-white"
+            >
+              Simpan Barang
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="stockHistoryModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+    >
+      <div
+        class="max-h-[85dvh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl"
+      >
+        <div
+          class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h3 class="font-bold">Riwayat Stok</h3>
+            <p
+              id="stockHistoryItemName"
+              class="mt-1 text-xs text-slate-500"
+            ></p>
+          </div>
+          <button
+            type="button"
+            onclick="closeStockModal('stockHistoryModal')"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div id="stockHistoryList" class="space-y-3"></div>
+      </div>
+    </div>
+    <div
+      id="modalConfirmDelete"
+      class="fixed inset-0 z-[60] hidden items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+    >
+      <div
+        class="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-2xl"
+      >
+        <div
+          class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100 text-2xl text-red-600"
+        >
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 class="mb-1 text-base font-bold text-slate-800">
+          Konfirmasi Penghapusan
+        </h3>
+        <p id="deleteConfirmText" class="mb-6 text-xs text-slate-500">
+          Hapus barang ini?
+        </p>
+        <div class="flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onclick="closeConfirmDelete()"
+            class="w-1/2 rounded-xl bg-slate-100 px-4 py-2.5 text-xs font-semibold text-slate-700"
+          >
+            Batal</button
+          ><button
+            id="deleteConfirmBtn"
+            type="button"
+            onclick="executePendingDelete()"
+            class="w-1/2 rounded-xl bg-red-600 px-4 py-2.5 text-xs font-semibold text-white"
+          >
+            Ya, Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      id="adminArrivalModal"
+      class="fixed inset-0 z-50 hidden items-end justify-center bg-slate-950/60 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+    >
+      <div
+        class="max-h-[94dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-2xl sm:p-6"
+      >
+        <div
+          class="mb-5 flex items-start justify-between gap-3 border-b border-slate-100 pb-4"
+        >
+          <div>
+            <h2 class="font-bold">Catat barang datang</h2>
+            <p
+              id="adminArrivalItemName"
+              class="mt-1 text-xs text-slate-500"
+            ></p>
+          </div>
+          <button
+            type="button"
+            onclick="closeAdminArrivalModal()"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-600"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form
+          id="adminArrivalForm"
+          onsubmit="submitAdminArrival(event)"
+          class="space-y-4 text-xs"
+        >
+          <input id="adminArrivalItemId" type="hidden" />
+          <input id="adminArrivalItemType" type="hidden" />
+          <div>
+            <label
+              for="adminArrivalQuantity"
+              class="mb-1 block font-semibold text-slate-700"
+              >Jumlah yang datang</label
+            >
+            <div class="flex gap-2">
+              <input
+                id="adminArrivalQuantity"
+                type="number"
+                min="1"
+                step="any"
+                required
+                inputmode="decimal"
+                class="min-w-0 flex-1 rounded-xl border border-slate-200 px-3.5 py-3 text-base"
+                placeholder="Masukkan jumlah"
+              /><span
+                id="adminArrivalUnit"
+                class="flex min-w-16 items-center justify-center rounded-xl bg-slate-100 px-3 font-bold text-slate-600"
+                >unit</span
+              >
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                for="adminArrivalDate"
+                class="mb-1 block font-semibold text-slate-700"
+                >Tanggal datang</label
+              ><input
+                id="adminArrivalDate"
+                type="date"
+                required
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+            <div>
+              <label
+                for="adminArrivalTime"
+                class="mb-1 block font-semibold text-slate-700"
+                >Jam datang</label
+              ><input
+                id="adminArrivalTime"
+                type="time"
+                required
+                class="w-full rounded-xl border border-slate-200 px-3 py-3"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              for="adminArrivalPhoto"
+              class="mb-1 block font-semibold text-slate-700"
+              >Foto barang datang</label
+            ><label
+              id="adminArrivalDropZone"
+              for="adminArrivalPhoto"
+              class="flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-5 text-center transition-colors hover:border-sky-400 hover:bg-sky-50"
+              ><i
+                class="fa-solid fa-cloud-arrow-up mb-2 text-2xl text-sky-600"
+              ></i
+              ><span class="text-xs font-semibold text-slate-700"
+                >Seret foto ke sini atau klik untuk memilih</span
+              ><span
+                id="adminArrivalPhotoName"
+                class="mt-1 text-[10px] text-slate-400"
+                >JPG, PNG, atau WebP · Maksimal 20 MB</span
+              ><input
+                id="adminArrivalPhoto"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                capture="environment"
+                required
+                class="sr-only"
+            /></label>
+            <p
+              id="adminArrivalPhotoValidation"
+              class="mt-1 text-[10px] text-slate-500"
+            >
+              Pilih foto JPG, PNG, atau WebP. Foto harus lolos validasi dan
+              kompresi sebelum disimpan.
+            </p>
+            <img
+              id="adminArrivalPhotoPreview"
+              alt="Pratinjau foto barang datang"
+              class="mt-3 hidden max-h-56 w-full rounded-xl border border-slate-200 bg-slate-100 object-contain"
+            />
+          </div>
+          <div>
+            <label
+              for="adminArrivalNote"
+              class="mb-1 block font-semibold text-slate-700"
+              >Catatan (opsional)</label
+            ><textarea
+              id="adminArrivalNote"
+              rows="2"
+              maxlength="250"
+              class="w-full rounded-xl border border-slate-200 px-3.5 py-3"
+              placeholder="Contoh: kondisi kemasan baik"
+            ></textarea>
+          </div>
+          <div class="flex gap-3 border-t border-slate-100 pt-4">
+            <button
+              type="button"
+              onclick="closeAdminArrivalModal()"
+              class="flex-1 rounded-xl bg-slate-100 px-4 py-3 font-semibold text-slate-600"
+            >
+              Batal</button
+            ><button
+              id="adminArrivalSubmitButton"
+              type="submit"
+              class="flex-1 rounded-xl bg-sky-700 px-4 py-3 font-bold text-white"
+            >
+              <i class="fa-solid fa-cloud-arrow-up mr-1"></i>Simpan penerimaan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="adminArrivalPhotoViewModal"
+      class="fixed inset-0 z-[55] hidden items-center justify-center bg-slate-950/80 p-4"
+      onclick="closeAdminArrivalPhotoView()"
+    >
+      <button
+        type="button"
+        aria-label="Tutup foto"
+        class="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-slate-700"
+      >
+        <i class="fa-solid fa-xmark"></i></button
+      ><img
+        id="adminArrivalPhotoViewImage"
+        alt="Foto bukti barang datang"
+        class="max-h-[85dvh] max-w-full rounded-xl object-contain"
+        onclick="event.stopPropagation()"
+      />
+    </div>
+    <nav
+      id="adminPwaBottomNav"
+      class="admin-pwa-bottom-nav fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-2 pt-2 shadow-[0_-8px_24px_rgba(15,23,42,.08)] backdrop-blur"
+      aria-label="Navigasi Admin Logistik"
+    >
+      <div class="mx-auto grid max-w-3xl grid-cols-4 gap-1">
+        <button
+          id="adminNavDashboard"
+          type="button"
+          onclick="showAdminPwaTab('dashboard')"
+          aria-current="page"
+          class="admin-pwa-nav flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-400"
+        >
+          <i class="fa-solid fa-house text-base"></i
+          ><span>Dashboard</span></button
+        ><button
+          id="adminNavArrival"
+          type="button"
+          onclick="showAdminPwaTab('arrival')"
+          class="admin-pwa-nav flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-[9px] font-semibold text-slate-400"
+        >
+          <i class="fa-solid fa-truck-ramp-box text-base"></i
+          ><span>Barang Datang</span></button
+        ><button
+          id="adminNavStock"
+          type="button"
+          onclick="showAdminPwaTab('stock')"
+          class="admin-pwa-nav flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-400"
+        >
+          <i class="fa-solid fa-boxes-stacked text-base"></i
+          ><span>Stok Barang</span></button
+        ><button
+          id="adminNavProfile"
+          type="button"
+          onclick="showAdminPwaTab('profile')"
+          class="admin-pwa-nav flex flex-col items-center gap-1 rounded-xl px-2 py-2 text-[10px] font-semibold text-slate-400"
+        >
+          <i class="fa-solid fa-user text-base"></i><span>Profil</span>
+        </button>
+      </div>
+    </nav>
+    <div
+      id="toastContainer"
+      class="pointer-events-none fixed bottom-5 right-5 z-[60] flex flex-col gap-2"
+    ></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

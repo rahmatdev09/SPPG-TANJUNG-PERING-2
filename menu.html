@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu & AKG | MBG System</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: { extend: { fontFamily: { sans: ["Inter", "sans-serif"] } } },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1
+              class="font-bold text-white tracking-wide text-base leading-tight"
+            >
+              MBG System
+            </h1>
+            <p class="text-xs text-sky-400 font-medium">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-chart-pie w-5 text-center"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="./barang.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-stacked w-5 text-center"></i
+            ><span>Kelola Barang</span></a
+          >
+          <a
+            href="./stok.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-boxes-packing w-5 text-center"></i
+            ><span>Stok Barang</span></a
+          >
+          <a
+            href="./menu.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl bg-sky-600 text-white shadow-md shadow-sky-600/30"
+            ><i class="fa-solid fa-utensils w-5 text-center"></i
+            ><span>Menu & AKG</span></a
+          >
+          <a
+            href="./supplier.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-truck-field w-5 text-center"></i
+            ><span>Data Supplier</span></a
+          >
+          <a
+            href="./pm.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-hospital-user w-5 text-center"></i
+            ><span>Penerima Manfaat</span></a
+          >
+          <a
+            href="./dokumen.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-file-contract w-5 text-center"></i
+            ><span>Dokumen & LPJ</span></a
+          >
+          <a
+            href="./user.html"
+            id="nav-users"
+            class="nav-item hidden flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-users-gear w-5 text-center"></i
+            ><span>Pengguna</span></a
+          >
+          <a
+            href="./setting.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span
+          ><span
+            class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button
+          id="installAppBtn"
+          type="button"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"
+        >
+          <i class="fa-solid fa-download"></i><span>Install aplikasi</span>
+        </button>
+        <p class="text-[11px]">Kementerian / Badan Gizi Nasional</p>
+      </div>
+    </aside>
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+    <div class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-5 px-6 sm:px-10 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2 class="text-xl font-bold tracking-tight">Menu & AKG</h2>
+            <p class="text-xs text-slate-500 hidden sm:block">
+              Daftar menu dan informasi angka kecukupan gizi
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i
+            ><span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer">
+            <button
+              onclick="handleLoginClick()"
+              class="flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium text-xs rounded-xl"
+            >
+              <i class="fa-brands fa-google"></i><span>Login Google</span>
+            </button>
+          </div>
+        </div>
+      </header>
+      <main class="flex-1 p-6 sm:p-10 max-w-7xl w-full mx-auto space-y-6">
+        <section
+          class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          >
+            <div>
+              <h3 class="font-bold text-base">Daftar Menu</h3>
+              <p class="text-xs text-slate-500 mt-1">
+                Simpan menu harian beserta informasi AKG-nya di Firebase.
+              </p>
+            </div>
+            <button
+              type="button"
+              onclick="openMenuModal()"
+              class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs rounded-xl shadow-md"
+            >
+              <i class="fa-solid fa-plus"></i> Tambah Menu
+            </button>
+          </div>
+          <label class="mt-5 block relative max-w-md"
+            ><i
+              class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"
+            ></i
+            ><input
+              id="menuSearch"
+              type="search"
+              oninput="renderMenuTable()"
+              placeholder="Cari nama menu atau AKG..."
+              class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-sky-500"
+          /></label>
+        </section>
+        <section
+          class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden"
+        >
+          <div class="overflow-x-auto custom-scrollbar">
+            <table
+              class="w-full min-w-[1050px] text-left text-xs text-slate-600"
+            >
+              <thead
+                class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider"
+              >
+                <tr>
+                  <th class="px-4 py-4 w-36">Tanggal</th>
+                  <th class="px-4 py-4 min-w-52">Nama Menu</th>
+                  <th class="px-4 py-4">Energi (kkal)</th>
+                  <th class="px-4 py-4">Protein (g)</th>
+                  <th class="px-4 py-4">Lemak (g)</th>
+                  <th class="px-4 py-4">Karbohidrat (g)</th>
+                  <th class="px-4 py-4">Serat (g)</th>
+                  <th class="px-4 py-4">Suhu (°C)</th>
+                  <th class="px-4 py-4 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="menuTableBody" class="divide-y divide-slate-100">
+                <tr>
+                  <td colspan="9" class="px-5 py-10 text-center text-sky-700">
+                    <i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat data
+                    menu dari Firebase...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            id="menuPagination"
+            class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100 px-5 py-4"
+          ></div>
+        </section>
+      </main>
+    </div>
+    <div
+      id="modalMenu"
+      onclick="if (event.target === this) closeMenuModal();"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+    >
+      <div
+        class="bg-white rounded-2xl w-full max-w-xl p-6 shadow-2xl border border-slate-200"
+      >
+        <div
+          class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5"
+        >
+          <div>
+            <h3 id="menuModalTitle" class="text-base font-bold">Tambah Menu</h3>
+            <p class="text-xs text-slate-500 mt-1">
+              Data disimpan pada database Firebase.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="closeMenuModal()"
+            class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form
+          id="formMenu"
+          onsubmit="saveMenu(event)"
+          class="space-y-4 text-sm"
+        >
+          <input type="hidden" id="menuId" />
+          <div>
+            <label
+              for="menuTanggal"
+              class="block text-xs font-semibold text-slate-700 mb-1.5"
+              >Tanggal</label
+            ><input
+              id="menuTanggal"
+              type="date"
+              required
+              class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+            />
+          </div>
+          <div>
+            <label
+              for="menuNama"
+              class="block text-xs font-semibold text-slate-700 mb-1.5"
+              >Nama menu</label
+            ><input
+              id="menuNama"
+              type="text"
+              maxlength="160"
+              required
+              placeholder="Contoh: Nasi, ayam kecap, sayur sop, buah"
+              class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+            />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label
+                for="menuEnergi"
+                class="block text-xs font-semibold text-slate-700 mb-1.5"
+                >Energi (kkal)</label
+              ><input
+                id="menuEnergi"
+                type="number"
+                min="0"
+                step="any"
+                required
+                placeholder="650"
+                class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+            <div>
+              <label
+                for="menuProtein"
+                class="block text-xs font-semibold text-slate-700 mb-1.5"
+                >Protein (g)</label
+              ><input
+                id="menuProtein"
+                type="number"
+                min="0"
+                step="any"
+                required
+                placeholder="25"
+                class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+            <div>
+              <label
+                for="menuLemak"
+                class="block text-xs font-semibold text-slate-700 mb-1.5"
+                >Lemak (g)</label
+              ><input
+                id="menuLemak"
+                type="number"
+                min="0"
+                step="any"
+                required
+                placeholder="20"
+                class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+            <div>
+              <label
+                for="menuKarbohidrat"
+                class="block text-xs font-semibold text-slate-700 mb-1.5"
+                >Karbohidrat (g)</label
+              ><input
+                id="menuKarbohidrat"
+                type="number"
+                min="0"
+                step="any"
+                required
+                placeholder="85"
+                class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="menuSerat"
+                class="block text-xs font-semibold text-slate-700 mb-1.5"
+                >Serat (g)</label
+              ><input
+                id="menuSerat"
+                type="number"
+                min="0"
+                step="any"
+                required
+                placeholder="8"
+                class="w-full px-3.5 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500"
+              />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div>
+              <label
+                for="menuSuhu"
+                class="mb-1.5 block text-xs font-semibold text-slate-700"
+                >Suhu menu (°C)</label
+              ><input
+                id="menuSuhu"
+                type="number"
+                min="0"
+                max="100"
+                step="0.1"
+                inputmode="decimal"
+                placeholder="Contoh: 72"
+                class="w-full rounded-xl border border-slate-200 px-3.5 py-3 outline-none focus:ring-2 focus:ring-sky-500"
+              />
+              <p class="mt-1 text-[10px] text-slate-400">
+                Opsional, catat suhu saat penyajian.
+              </p>
+            </div>
+            <div>
+              <label
+                for="menuFoto"
+                class="mb-1.5 block text-xs font-semibold text-slate-700"
+                >Foto menu</label
+              ><input
+                id="menuFoto"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                capture="environment"
+                onchange="handleMenuPhotoChange(this)"
+                class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs file:mr-3 file:rounded-lg file:border-0 file:bg-sky-50 file:px-3 file:py-2 file:font-semibold file:text-sky-700"
+              />
+              <p id="menuPhotoStatus" class="mt-1 text-[10px] text-slate-400">
+                JPG, PNG, atau WebP. Foto akan dikompres otomatis.
+              </p>
+              <div class="mt-2 flex items-start gap-2">
+                <img
+                  id="menuPhotoPreview"
+                  alt="Pratinjau foto menu"
+                  class="hidden h-20 w-28 rounded-lg border border-slate-200 bg-slate-50 object-cover"
+                /><button
+                  id="menuPhotoRemove"
+                  type="button"
+                  onclick="removeMenuPhoto()"
+                  class="hidden rounded-lg px-2.5 py-2 text-[10px] font-semibold text-rose-600 hover:bg-rose-50"
+                >
+                  <i class="fa-solid fa-trash-can mr-1"></i>Hapus foto
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-400 -mt-2">
+            Nilai AKG tersimpan terpisah agar mudah dibaca dan dianalisis.
+          </p>
+          <div class="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onclick="closeMenuModal()"
+              class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl"
+            >
+              Batal</button
+            ><button
+              id="saveMenuBtn"
+              type="submit"
+              class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs rounded-xl"
+            >
+              <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Menu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="toastContainer"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
+    ></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

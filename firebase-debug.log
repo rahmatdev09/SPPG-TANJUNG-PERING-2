@@ -1,0 +1,49 @@
+[debug] [2026-10-07T17:19:08.271Z] ----------------------------------------------------------------------
+[debug] [2026-10-07T17:19:08.280Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:list --json
+[debug] [2026-10-07T17:19:08.282Z] CLI Version:   15.23.0
+[debug] [2026-10-07T17:19:08.283Z] Platform:      win32
+[debug] [2026-10-07T17:19:08.284Z] Node Version:  v23.6.0
+[debug] [2026-10-07T17:19:08.285Z] Detected Agent: codex_cli
+[debug] [2026-10-07T17:19:08.286Z] Time:          Thu Oct 08 2026 00:19:08 GMT+0700 (Western Indonesia Time)
+[debug] [2026-10-07T17:19:08.286Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-10-07T17:19:08.324Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-10-07T17:19:08.324Z] > authorizing via signed-in user (rahmatdev09@gmail.com)
+[debug] [2026-10-07T17:19:08.393Z] Checked if tokens are valid: false, expires at: 1752812757174
+[debug] [2026-10-07T17:19:08.393Z] Checked if tokens are valid: false, expires at: 1752812757174
+[debug] [2026-10-07T17:19:08.393Z] > refreshing access token with scopes: []
+[debug] [2026-10-07T17:19:08.400Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-10-07T17:19:08.400Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T17:19:09.749Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-10-07T17:19:09.750Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T17:19:09.751Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-10-07T17:19:10.134Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 401
+[debug] [2026-10-07T17:19:10.134Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2026-10-07T17:19:10.134Z] Got a 401 Unauthenticated error for a call that required authentication. Refreshing tokens.
+[debug] [2026-10-07T17:19:10.135Z] Checked if tokens are valid: false, expires at: 1752812757174
+[debug] [2026-10-07T17:19:10.135Z] Checked if tokens are valid: false, expires at: 1752812757174
+[debug] [2026-10-07T17:19:10.135Z] > refreshing access token with scopes: []
+[debug] [2026-10-07T17:19:10.136Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-10-07T17:19:10.136Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T17:19:10.174Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-10-07T17:19:10.174Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-10-07T17:19:10.178Z] Request to https://firebase.googleapis.com/v1beta1/projects?pageSize=1000 had HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2026-10-07T17:19:10.351Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects?pageSize=1000 had HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+    at responseToError (C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to list Firebase projects. See firebase-debug.log for more info.
+[debug] [2026-10-07T17:19:41.024Z] ----------------------------------------------------------------------
+[debug] [2026-10-07T17:19:41.029Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js login:list
+[debug] [2026-10-07T17:19:41.029Z] CLI Version:   15.23.0
+[debug] [2026-10-07T17:19:41.030Z] Platform:      win32
+[debug] [2026-10-07T17:19:41.030Z] Node Version:  v23.6.0
+[debug] [2026-10-07T17:19:41.030Z] Detected Agent: codex_cli
+[debug] [2026-10-07T17:19:41.031Z] Time:          Thu Oct 08 2026 00:19:41 GMT+0700 (Western Indonesia Time)
+[debug] [2026-10-07T17:19:41.031Z] ----------------------------------------------------------------------
+[debug] 
+[info] Logged in as rahmatdev09@gmail.com
+[info] 
+[info] Other available accounts (switch with "firebase login:use")
+[info]  - project09.dev@gmail.com

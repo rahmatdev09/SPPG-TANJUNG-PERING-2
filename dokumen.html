@@ -1,0 +1,645 @@
+﻿<!doctype html>
+<html lang="id" class="h-full bg-slate-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dokumen & LPJ MBG</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#0284c7" />
+    <link rel="icon" href="./assets/icon-192.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body
+    class="h-full flex bg-slate-50 text-slate-800 antialiased overflow-x-hidden"
+  >
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-slate-300 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-2xl"
+    >
+      <div>
+        <div
+          class="h-20 flex items-center px-6 border-b border-slate-800 gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-sky-500/20"
+          >
+            <i class="fa-solid fa-utensils text-lg"></i>
+          </div>
+          <div>
+            <h1
+              class="font-bold text-white tracking-wide text-base leading-tight"
+            >
+              MBG System
+            </h1>
+            <p class="text-xs text-sky-400 font-medium">Makan Bergizi Gratis</p>
+          </div>
+        </div>
+
+        <nav class="p-4 space-y-1.5 font-medium text-sm">
+          <a
+            href="./index.html"
+            id="nav-dashboard"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+            <span>Dashboard</span>
+          </a>
+          <a
+            href="./barang.html"
+            id="nav-barang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-boxes-stacked w-5 text-center"></i>
+            <span>Kelola Barang</span>
+          </a>
+          <a href="./stok.html" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-boxes-packing w-5 text-center"></i><span>Stok Barang</span></a>
+          <a href="./menu.html" id="nav-menu" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-utensils w-5 text-center"></i><span>Menu &amp; AKG</span></a>
+          
+          <a
+            href="./supplier.html"
+            id="nav-supplier"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-truck-field w-5 text-center"></i>
+            <span>Data Supplier</span>
+          </a>
+          <a
+            href="./pm.html"
+            id="nav-pm"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <i class="fa-solid fa-hospital-user w-5 text-center"></i>
+            <span>Penerima Manfaat</span>
+          </a>
+          <a
+            href="./dokumen.html"
+            id="nav-dokumen"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 bg-sky-600 text-white shadow-md shadow-sky-600/30"
+          >
+            <i class="fa-solid fa-file-contract w-5 text-center"></i>
+            <span>Dokumen & LPJ</span>
+          </a>
+          <a href="./user.html" id="nav-users" class="nav-item hidden flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"><i class="fa-solid fa-users-gear w-5 text-center"></i><span>Pengguna</span></a>
+          <a
+            href="./setting.html"
+            id="nav-setting"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-gear w-5 text-center"></i
+            ><span>Setting</span></a
+          >
+          <a
+            href="./tentang.html"
+            id="nav-tentang"
+            class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            ><i class="fa-solid fa-circle-info w-5 text-center"></i
+            ><span>Tentang</span></a
+          >
+        </nav>
+      </div>
+
+      <div
+        class="p-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col gap-1"
+      >
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-slate-400">MBG Mobile PWA</span>
+          <span
+            class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >v2.4 Online</span
+          >
+        </div>
+        <button id="installAppBtn" type="button" class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"><i class="fa-solid fa-download"></i><span>Install aplikasi</span></button><p class="text-[11px] text-slate-500">
+          Kementerian / Badan Gizi Nasional
+        </p>
+      </div>
+    </aside>
+
+    <div
+      id="sidebarOverlay"
+      onclick="toggleSidebar(false)"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"
+    ></div>
+
+    <div class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <header
+        class="bg-white border-b border-slate-200 sticky top-0 z-20 py-5 px-6 sm:px-10 flex items-center justify-between shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleSidebar(true)"
+            class="lg:hidden p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+          <div>
+            <h2
+              id="pageTitle"
+              class="text-xl font-bold text-slate-800 tracking-tight"
+            >
+              Dokumen Kelengkapan & LPJ
+            </h2>
+            <p id="pageSubTitle" class="text-xs text-slate-500 hidden sm:block">
+              Berkas BAST, Serah Terima, dan Laporan Pertanggungjawaban
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200"
+          >
+            <i class="fa-regular fa-calendar text-sky-600"></i>
+            <span id="currentDateStr">--</span>
+          </div>
+          <div id="authContainer">
+            <button
+              onclick="handleLoginClick()"
+              class="flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium text-xs rounded-xl shadow-md shadow-sky-600/20 transition-all"
+            >
+              <i class="fa-brands fa-google text-sm"></i>
+              <span>Login Google</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 p-6 sm:p-10 max-w-7xl w-full mx-auto space-y-8">
+        <section class="space-y-6 animate-fadeIn">
+          <div
+            class="flex items-center justify-between bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm"
+          >
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">
+                Dokumen Kelengkapan & LPJ
+              </h3>
+              <p class="text-xs text-slate-500">
+                Berkas BAST, Serah Terima, dan Laporan Pertanggungjawaban
+              </p>
+            </div>
+            <button
+              onclick="handleUploadDokumen()"
+              class="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs rounded-xl shadow-md transition-all"
+            >
+              <i class="fa-solid fa-file-circle-plus"></i> Upload Dokumen
+            </button>
+          </div>
+
+          <div
+            class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm"
+          >
+            <div class="min-w-0">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <h3 class="font-bold text-slate-800 text-sm">
+                    Penyimpanan Google Drive
+                  </h3>
+                  <p id="driveStorageTotal" class="text-xs text-slate-500 mt-1">
+                    Kapasitas Drive dimuat otomatis saat login Google
+                  </p>
+                </div>
+                <span
+                  id="driveStorageStatus"
+                  class="text-xs font-bold text-slate-500"
+                  >Memuat saat login</span
+                >
+                <button id="driveReconnectButton" type="button" onclick="handleLoginClick()" class="hidden rounded-lg bg-sky-600 px-3 py-2 text-[10px] font-bold text-white"><i class="fa-brands fa-google mr-1"></i>Sambungkan Drive</button>
+              </div>
+              <div class="mt-3 h-2 rounded-full bg-slate-100 overflow-hidden">
+                <div
+                  id="driveStorageBar"
+                  class="h-full w-0 bg-sky-500 rounded-full transition-all"
+                ></div>
+              </div>
+              <p class="text-xs text-slate-500 mt-2">
+                Terpakai:
+                <strong id="driveStorageUsed" class="text-slate-700"
+                  >Menunggu login</strong
+                >
+              </p>
+              <p class="text-xs text-slate-500 mt-1">
+                Total dokumen MBG:
+                <strong id="driveDocumentsTotal" class="text-slate-700"
+                  >0 B</strong
+                >
+              </p>
+              <p
+                id="driveAccountLabel"
+                class="text-[10px] text-slate-400 mt-1"
+              ></p>
+              <div
+                id="driveApiSetupNotice"
+                class="hidden mt-3 p-3 rounded-xl border border-amber-200 bg-amber-50 text-xs text-amber-800"
+              >
+                Google Drive API belum aktif untuk project
+                <strong>sppg-abc46</strong>. Aktifkan di Google Cloud Console,
+                pastikan OAuth mengizinkan scope Drive, lalu tunggu beberapa
+                menit lalu muat ulang halaman.
+                <a
+                  class="inline-block mt-1 font-bold underline"
+                  href="https://console.cloud.google.com/apis/library/drive.googleapis.com?project=sppg-abc46"
+                  target="_blank"
+                  rel="noopener"
+                  >Buka pengaturan Google Drive API</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white px-4 py-3 rounded-xl border border-slate-200/80"
+          >
+            <div class="flex items-center gap-3">
+              <div class="inline-flex p-1 rounded-lg bg-slate-100">
+                <button
+                  id="driveLayoutListBtn"
+                  type="button"
+                  onclick="setDriveLayout('list')"
+                  class="drive-view-button"
+                  title="Tampilan list"
+                >
+                  <i class="fa-solid fa-list"></i></button
+                ><button
+                  id="driveLayoutGridBtn"
+                  type="button"
+                  onclick="setDriveLayout('grid')"
+                  class="drive-view-button"
+                  title="Tampilan grid"
+                >
+                  <i class="fa-solid fa-grip"></i>
+                </button>
+              </div>
+              <span
+                id="driveFilesCount"
+                class="text-xs font-semibold text-slate-500"
+                >0 file</span
+              >
+            </div>
+            <div class="flex items-center justify-between sm:justify-end gap-2">
+              <label class="text-[11px] text-slate-500 flex items-center gap-1"
+                >Per halaman<select
+                  id="drivePageSize"
+                  onchange="changeDrivePageSize(this.value)"
+                  class="border border-slate-200 rounded-lg px-2 py-1.5 bg-white text-xs"
+                >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select></label
+              ><button
+                id="drivePreviousPage"
+                type="button"
+                onclick="changeDrivePage(-1)"
+                class="drive-page-button"
+                title="Halaman sebelumnya"
+              >
+                <i class="fa-solid fa-chevron-left"></i></button
+              ><span
+                id="drivePageLabel"
+                class="text-[11px] font-semibold text-slate-500 min-w-24 text-center"
+                >Halaman 1 / 1</span
+              ><button
+                id="driveNextPage"
+                type="button"
+                onclick="changeDrivePage(1)"
+                class="drive-page-button"
+                title="Halaman berikutnya"
+              >
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden"
+          >
+            <div class="overflow-x-auto custom-scrollbar">
+              <table class="w-full text-left text-xs text-slate-600">
+                <thead
+                  class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-bold tracking-wider"
+                >
+                  <tr>
+                    <th class="py-4 px-5">Judul Dokumen</th>
+                    <th class="py-4 px-5">Kategori</th>
+                    <th class="py-4 px-5">Tanggal Upload</th>
+                    <th class="py-4 px-5">Terakhir Diubah</th>
+                    <th class="py-4 px-5 text-right">Ukuran</th>
+                    <th class="py-4 px-5">Jenis File</th>
+                    <th class="py-4 px-5 text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="dokumenTableBody"
+                  class="divide-y divide-slate-100"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div
+      id="modalDriveDetail"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn"
+    >
+      <div class="drive-detail-dialog bg-white rounded-2xl w-[min(42rem,calc(100vw-2rem))] shadow-2xl border border-slate-200 mx-4">
+        <div class="drive-detail-scroll p-6">
+        <div
+          class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4"
+        >
+          <h3 class="text-base font-bold text-slate-800">Detail File Drive</h3>
+          <button
+            type="button"
+            onclick="closeDriveDetail()"
+            class="w-8 h-8 rounded-full bg-slate-100 text-slate-500"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <h4
+          id="driveDetailName"
+          class="text-lg font-bold text-slate-900 break-words"
+        ></h4>
+        <div
+          id="driveImagePreviewPanel"
+          class="hidden mt-4 rounded-xl bg-slate-100 border border-slate-200 p-2"
+        >
+          <div class="drive-preview-stage">
+            <p id="driveImagePreviewMessage" class="drive-preview-message">
+              <i class="fa-solid fa-spinner fa-spin mr-2" aria-hidden="true"></i>Memuat pratinjau gambar...
+            </p>
+            <img id="driveImagePreview" class="hidden" alt="Pratinjau gambar dari Google Drive" />
+          </div>
+        </div>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 text-xs">
+          <div class="bg-slate-50 p-3 rounded-xl">
+            <dt class="text-slate-400">Kategori</dt>
+            <dd
+              id="driveDetailCategory"
+              class="font-semibold text-slate-700 mt-1"
+            ></dd>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl">
+            <dt class="text-slate-400">Jenis file (MIME)</dt>
+            <dd
+              id="driveDetailType"
+              class="font-semibold text-slate-700 mt-1 break-all"
+            ></dd>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl">
+            <dt class="text-slate-400">Tanggal upload</dt>
+            <dd
+              id="driveDetailCreated"
+              class="font-semibold text-slate-700 mt-1"
+            ></dd>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl">
+            <dt class="text-slate-400">Terakhir diubah</dt>
+            <dd
+              id="driveDetailModified"
+              class="font-semibold text-slate-700 mt-1"
+            ></dd>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl">
+            <dt class="text-slate-400">Ukuran</dt>
+            <dd
+              id="driveDetailSize"
+              class="font-semibold text-slate-700 mt-1"
+            ></dd>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl">
+            <dt class="text-slate-400">Pemilik</dt>
+            <dd
+              id="driveDetailOwner"
+              class="font-semibold text-slate-700 mt-1 break-all"
+            ></dd>
+          </div>
+        </dl>
+        <div class="mt-5 flex justify-end">
+          <button
+            id="driveDetailDownload"
+            type="button"
+            class="mr-2 px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-xs font-bold"
+          >
+            <i class="fa-solid fa-download mr-1"></i>Unduh
+          </button>
+          <a
+            id="driveDetailOpenLink"
+            target="_blank"
+            rel="noopener"
+            class="px-4 py-2.5 bg-sky-600 text-white rounded-xl text-xs font-bold"
+            ><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Buka
+            file</a
+          >
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modalEditDriveFile"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 mx-4"
+      >
+        <div
+          class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4"
+        >
+          <h3 class="text-base font-bold text-slate-800">Edit detail file</h3>
+          <button
+            type="button"
+            onclick="closeEditDriveFile()"
+            class="w-8 h-8 rounded-full bg-slate-100 text-slate-500"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form onsubmit="saveDriveFileChanges(event)" class="space-y-4 text-xs">
+          <input id="driveEditFileId" type="hidden" />
+          <div>
+            <label
+              for="driveEditName"
+              class="block font-semibold text-slate-700 mb-1"
+              >Nama file</label
+            ><input
+              id="driveEditName"
+              required
+              maxlength="255"
+              class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl"
+            />
+          </div>
+          <div>
+            <label
+              for="driveEditCategory"
+              class="block font-semibold text-slate-700 mb-1"
+              >Kategori</label
+            ><input
+              id="driveEditCategory"
+              required
+              class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl"
+            />
+          </div>
+          <div class="pt-3 flex justify-end gap-3 border-t border-slate-100">
+            <button
+              type="button"
+              onclick="closeEditDriveFile()"
+              class="px-4 py-2.5 text-slate-600 rounded-xl"
+            >
+              Batal</button
+            ><button
+              type="submit"
+              class="px-5 py-2.5 bg-sky-600 text-white rounded-xl font-bold"
+            >
+              <i class="fa-solid fa-floppy-disk mr-1"></i>Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="modalConfirmDriveDelete"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center mx-4"
+      >
+        <div
+          class="w-14 h-14 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </div>
+        <h3 class="text-base font-bold text-slate-800">
+          Pindahkan file ke Sampah Drive?
+        </h3>
+        <p id="driveDeleteConfirmText" class="text-xs text-slate-500 my-4"></p>
+        <div class="flex justify-center gap-3">
+          <button
+            type="button"
+            onclick="closeDriveDeleteConfirm()"
+            class="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold"
+          >
+            Batal</button
+          ><button
+            type="button"
+            onclick="deleteDriveFile(event)"
+            class="px-4 py-2.5 bg-red-600 text-white rounded-xl text-xs font-semibold"
+          >
+            <i class="fa-solid fa-trash-can mr-1"></i>Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modalUploadDokumen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden animate-fadeIn"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 mx-4"
+      >
+        <div
+          class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4"
+        >
+          <h3 class="text-base font-bold text-slate-800">
+            Upload ke Google Drive
+          </h3>
+          <button
+            type="button"
+            onclick="closeModalUploadDokumen()"
+            class="w-8 h-8 rounded-full bg-slate-100 text-slate-500"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form
+          id="formUploadDokumen"
+          onsubmit="submitUploadDokumen(event)"
+          class="space-y-4 text-xs"
+        >
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1"
+              >Kategori Dokumen</label
+            ><select
+              id="inputKategoriDokumen"
+              required
+              class="category-select w-full px-3.5 py-2.5 border border-slate-200 rounded-xl"
+            >
+              <option>BAST Logistik</option>
+              <option>LPJ</option>
+              <option>Berita Acara</option>
+              <option>Nota / Faktur</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1"
+              >Pilih file</label
+            ><input
+              id="inputFileDokumen"
+              type="file"
+              required
+              class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl"
+            />
+            <p class="text-[10px] text-slate-400 mt-1">
+              File disimpan ke Google Drive akun yang Anda hubungkan.
+            </p>
+          </div>
+          <div class="pt-3 flex justify-end gap-3 border-t border-slate-100">
+            <button
+              type="button"
+              onclick="closeModalUploadDokumen()"
+              class="px-4 py-2.5 text-slate-600 rounded-xl"
+            >
+              Batal</button
+            ><button
+              type="submit"
+              class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl"
+            >
+              <i class="fa-solid fa-cloud-arrow-up"></i> Upload file
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="toastContainer"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
+    ></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

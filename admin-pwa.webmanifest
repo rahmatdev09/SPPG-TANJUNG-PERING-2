@@ -1,0 +1,26 @@
+{
+  "id": "./admin-penerimaan.html",
+  "name": "MBG Admin Logistik",
+  "short_name": "MBG Logistik",
+  "description": "Dashboard logistik untuk penerimaan barang, stok, dan profil admin MBG.",
+  "start_url": "./admin-penerimaan.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0369a1",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./assets/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
