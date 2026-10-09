@@ -19,13 +19,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBmVv0d5rsBOF5tUau3LuRF-LasmgYNbXE",
-  authDomain: "sppg-tanjung-pering-2.firebaseapp.com",
-  projectId: "sppg-tanjung-pering-2",
-  storageBucket: "sppg-tanjung-pering-2.firebasestorage.app",
-  messagingSenderId: "871982906822",
-  appId: "1:871982906822:web:0cefb8dc71c1e09d5706c7",
-  measurementId: "G-9RLD44C7HZ"
+  apiKey: "AIzaSyBQT1R5HhePD7XPIE48aZXMcC58JrL6cPk",
+  authDomain: "sppg-abc46.firebaseapp.com",
+  projectId: "sppg-abc46",
+  storageBucket: "sppg-abc46.firebasestorage.app",
+  messagingSenderId: "1067084887190",
+  appId: "1:1067084887190:web:c5948ee1cdfa525aabbeb7",
+  measurementId: "G-XB8CPB6YR6",
 };
 
 window.firebaseConfigInfo = { ...firebaseConfig };
@@ -121,6 +121,7 @@ const USER_ROLES = {
   SUPER_ADMIN: "super_admin",
   LOGISTICS: "admin_logistik",
 };
+const DESIGNATED_SUPER_ADMIN_EMAIL = "rahmatdev09@gmail.com";
 
 function isOperationalPage() {
   return new URLSearchParams(location.search).get("jenis") === "operasional";
@@ -150,8 +151,20 @@ async function getAccountAccess(email) {
   const normalizedEmail = normalizeAccountEmail(email);
   if (!normalizedEmail) return null;
   const accountSnapshot = await getDoc(doc(db, "app_users", normalizedEmail));
-  if (!accountSnapshot.exists()) return null;
-  return { email: normalizedEmail, ...accountSnapshot.data() };
+  if (!accountSnapshot.exists()) {
+    return normalizedEmail === DESIGNATED_SUPER_ADMIN_EMAIL
+      ? {
+          email: normalizedEmail,
+          displayName: "Super Admin",
+          role: USER_ROLES.SUPER_ADMIN,
+          active: true,
+        }
+      : null;
+  }
+  const account = { email: normalizedEmail, ...accountSnapshot.data() };
+  return normalizedEmail === DESIGNATED_SUPER_ADMIN_EMAIL
+    ? { ...account, role: USER_ROLES.SUPER_ADMIN, active: true }
+    : account;
 }
 
 function isSuperAdmin() {
@@ -212,13 +225,18 @@ function updateRoleNavigation() {
   const nav = document.querySelector("#sidebar nav");
   if (nav && !nav.querySelector("#nav-limbah")) {
     const link = document.createElement("a");
-    const active = (location.pathname.split("/").pop() || "index.html") === "limbah.html";
+    const active =
+      (location.pathname.split("/").pop() || "index.html") === "limbah.html";
     link.id = "nav-limbah";
     link.href = "./limbah.html";
     link.className = `nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${active ? "bg-sky-600 text-white shadow-md shadow-sky-600/30" : "hover:bg-slate-800 hover:text-white"}`;
-    link.innerHTML = '<i class="fa-solid fa-recycle w-5 text-center"></i><span>Limbah</span>';
+    link.innerHTML =
+      '<i class="fa-solid fa-recycle w-5 text-center"></i><span>Limbah</span>';
     const after = nav.querySelector('#nav-menu, a[href="./menu.html"]');
-    const anchor = after?.parentElement === nav ? after : nav.querySelector('#nav-barang, a[href="./barang.html"]');
+    const anchor =
+      after?.parentElement === nav
+        ? after
+        : nav.querySelector('#nav-barang, a[href="./barang.html"]');
     if (anchor?.parentElement === nav) anchor.after(link);
     else nav.appendChild(link);
   }
@@ -1604,39 +1622,42 @@ auth.onAuthStateChanged((user) => {
       window.appState.user = user;
       window.appState.access = access;
       accountMonitorUnsubscribe?.();
-      accountMonitorUnsubscribe = onSnapshot(
-        doc(db, "app_users", normalizeAccountEmail(user.email)),
-        async (accountDoc) => {
-          if (
-            !accountDoc.exists() ||
-            accountDoc.data().active !== true ||
-            ![USER_ROLES.SUPER_ADMIN, USER_ROLES.LOGISTICS].includes(
-              accountDoc.data().role,
-            )
-          ) {
-            accessDeniedNotice = true;
-            clearDriveToken();
-            showToast("Akses akun Anda telah dicabut", "error");
-            await signOut(auth);
-            return;
-          }
-          window.appState.access = {
-            email: normalizeAccountEmail(user.email),
-            ...accountDoc.data(),
-          };
-          updateRoleNavigation();
-          if (!canUseCurrentPage(window.appState.access.role))
-            renderAccessGate({
-              restricted: true,
-              premiumRequired: window.appState.access?.plan !== "premium",
-            });
-        },
-        async (error) => {
-          console.error("Pemantauan akses akun gagal:", error);
-          accessDeniedNotice = true;
-          await signOut(auth);
-        },
-      );
+      accountMonitorUnsubscribe =
+        normalizeAccountEmail(user.email) === DESIGNATED_SUPER_ADMIN_EMAIL
+          ? null
+          : onSnapshot(
+              doc(db, "app_users", normalizeAccountEmail(user.email)),
+              async (accountDoc) => {
+                if (
+                  !accountDoc.exists() ||
+                  accountDoc.data().active !== true ||
+                  ![USER_ROLES.SUPER_ADMIN, USER_ROLES.LOGISTICS].includes(
+                    accountDoc.data().role,
+                  )
+                ) {
+                  accessDeniedNotice = true;
+                  clearDriveToken();
+                  showToast("Akses akun Anda telah dicabut", "error");
+                  await signOut(auth);
+                  return;
+                }
+                window.appState.access = {
+                  email: normalizeAccountEmail(user.email),
+                  ...accountDoc.data(),
+                };
+                updateRoleNavigation();
+                if (!canUseCurrentPage(window.appState.access.role))
+                  renderAccessGate({
+                    restricted: true,
+                    premiumRequired: window.appState.access?.plan !== "premium",
+                  });
+              },
+              async (error) => {
+                console.error("Pemantauan akses akun gagal:", error);
+                accessDeniedNotice = true;
+                await signOut(auth);
+              },
+            );
       renderAuthHeader();
       if (!canUseCurrentPage(access.role)) {
         updateRoleNavigation();
@@ -5997,8 +6018,16 @@ function renderLimbahTable() {
   }
   const query = (search?.value || "").trim().toLocaleLowerCase("id-ID");
   const items = [...window.appState.limbah]
-    .filter((item) => String(item.nama || "").toLocaleLowerCase("id-ID").includes(query))
-    .sort((a, b) => String(b.tanggal || b.createdAt || "").localeCompare(String(a.tanggal || a.createdAt || "")));
+    .filter((item) =>
+      String(item.nama || "")
+        .toLocaleLowerCase("id-ID")
+        .includes(query),
+    )
+    .sort((a, b) =>
+      String(b.tanggal || b.createdAt || "").localeCompare(
+        String(a.tanggal || a.createdAt || ""),
+      ),
+    );
   if (!items.length) {
     tbody.innerHTML = `<tr><td colspan="5" class="px-5 py-10 text-center text-slate-400">${query ? "Limbah tidak ditemukan" : "Belum ada data limbah. Tambahkan data pertama."}</td></tr>`;
     renderLimbahPagination(0);
@@ -6006,12 +6035,20 @@ function renderLimbahTable() {
   }
   const pageSize = window.appState.limbahPageSize || 10;
   const pages = Math.max(1, Math.ceil(items.length / pageSize));
-  window.appState.limbahPage = Math.min(Math.max(1, window.appState.limbahPage || 1), pages);
+  window.appState.limbahPage = Math.min(
+    Math.max(1, window.appState.limbahPage || 1),
+    pages,
+  );
   const start = (window.appState.limbahPage - 1) * pageSize;
-  tbody.innerHTML = items.slice(start, start + pageSize).map((item) => {
-    const photos = Array.isArray(item.fotoLimbah) ? item.fotoLimbah.slice(0, 4) : [];
-    return `<tr class="hover:bg-slate-50/80"><td class="px-5 py-4 whitespace-nowrap">${escapeHtml(formatDateID(item.tanggal || String(item.createdAt || "").slice(0, 10)) || "-")}</td><td class="px-5 py-3"><div class="flex gap-1">${photos.length ? photos.map((photo, index) => `<img src="${escapeHtml(photo.dataUrl || "")}" alt="Foto ${escapeHtml(item.nama || "limbah")} ${index + 1}" loading="lazy" class="h-12 w-14 rounded-lg border border-slate-200 object-cover"/>`).join("") : '<span class="flex h-12 w-14 items-center justify-center rounded-lg bg-slate-50 text-slate-300"><i class="fa-solid fa-recycle"></i></span>'}</div></td><td class="px-5 py-4 font-bold text-slate-800">${escapeHtml(item.nama || "-")}</td><td class="px-5 py-4">${escapeHtml(Number(item.berat || 0).toLocaleString("id-ID", { maximumFractionDigits: 3 }))} kg</td><td class="px-5 py-4 text-right whitespace-nowrap"><button type="button" onclick="viewLimbah('${escapeHtml(item.id)}')" class="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg" title="Lihat limbah"><i class="fa-solid fa-eye"></i></button><button type="button" onclick="editLimbah('${escapeHtml(item.id)}')" class="p-2 text-sky-600 hover:bg-sky-50 rounded-lg" title="Edit limbah"><i class="fa-solid fa-pen-to-square"></i></button><button type="button" onclick="deleteLimbah('${escapeHtml(item.id)}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Hapus limbah"><i class="fa-solid fa-trash-can"></i></button></td></tr>`;
-  }).join("");
+  tbody.innerHTML = items
+    .slice(start, start + pageSize)
+    .map((item) => {
+      const photos = Array.isArray(item.fotoLimbah)
+        ? item.fotoLimbah.slice(0, 4)
+        : [];
+      return `<tr class="hover:bg-slate-50/80"><td class="px-5 py-4 whitespace-nowrap">${escapeHtml(formatDateID(item.tanggal || String(item.createdAt || "").slice(0, 10)) || "-")}</td><td class="px-5 py-3"><div class="flex gap-1">${photos.length ? photos.map((photo, index) => `<img src="${escapeHtml(photo.dataUrl || "")}" alt="Foto ${escapeHtml(item.nama || "limbah")} ${index + 1}" loading="lazy" class="h-12 w-14 rounded-lg border border-slate-200 object-cover"/>`).join("") : '<span class="flex h-12 w-14 items-center justify-center rounded-lg bg-slate-50 text-slate-300"><i class="fa-solid fa-recycle"></i></span>'}</div></td><td class="px-5 py-4 font-bold text-slate-800">${escapeHtml(item.nama || "-")}</td><td class="px-5 py-4">${escapeHtml(Number(item.berat || 0).toLocaleString("id-ID", { maximumFractionDigits: 3 }))} kg</td><td class="px-5 py-4 text-right whitespace-nowrap"><button type="button" onclick="viewLimbah('${escapeHtml(item.id)}')" class="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg" title="Lihat limbah"><i class="fa-solid fa-eye"></i></button><button type="button" onclick="editLimbah('${escapeHtml(item.id)}')" class="p-2 text-sky-600 hover:bg-sky-50 rounded-lg" title="Edit limbah"><i class="fa-solid fa-pen-to-square"></i></button><button type="button" onclick="deleteLimbah('${escapeHtml(item.id)}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Hapus limbah"><i class="fa-solid fa-trash-can"></i></button></td></tr>`;
+    })
+    .join("");
   renderLimbahPagination(items.length);
 }
 
@@ -6023,11 +6060,14 @@ function renderLimbahPagination(total) {
   const page = Math.min(window.appState.limbahPage || 1, pages);
   const first = total ? (page - 1) * size + 1 : 0;
   const last = Math.min(page * size, total);
-  container.innerHTML = `<div class="text-xs text-slate-500">Menampilkan <b>${first}-${last}</b> dari <b>${total}</b> limbah</div><div class="flex items-center gap-2"><label class="flex items-center gap-2 text-xs text-slate-500">Baris<select onchange="changeLimbahPageSize(this.value)" class="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs text-slate-700">${[10,25,50].map((n) => `<option value="${n}" ${size === n ? "selected" : ""}>${n}</option>`).join("")}</select></label><button type="button" onclick="changeLimbahPage(-1)" ${page <= 1 ? "disabled" : ""} class="h-8 w-8 rounded-lg border border-slate-200 disabled:opacity-40"><i class="fa-solid fa-chevron-left"></i></button><span class="min-w-20 text-center text-xs">${page} / ${pages}</span><button type="button" onclick="changeLimbahPage(1)" ${page >= pages ? "disabled" : ""} class="h-8 w-8 rounded-lg border border-slate-200 disabled:opacity-40"><i class="fa-solid fa-chevron-right"></i></button></div>`;
+  container.innerHTML = `<div class="text-xs text-slate-500">Menampilkan <b>${first}-${last}</b> dari <b>${total}</b> limbah</div><div class="flex items-center gap-2"><label class="flex items-center gap-2 text-xs text-slate-500">Baris<select onchange="changeLimbahPageSize(this.value)" class="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs text-slate-700">${[10, 25, 50].map((n) => `<option value="${n}" ${size === n ? "selected" : ""}>${n}</option>`).join("")}</select></label><button type="button" onclick="changeLimbahPage(-1)" ${page <= 1 ? "disabled" : ""} class="h-8 w-8 rounded-lg border border-slate-200 disabled:opacity-40"><i class="fa-solid fa-chevron-left"></i></button><span class="min-w-20 text-center text-xs">${page} / ${pages}</span><button type="button" onclick="changeLimbahPage(1)" ${page >= pages ? "disabled" : ""} class="h-8 w-8 rounded-lg border border-slate-200 disabled:opacity-40"><i class="fa-solid fa-chevron-right"></i></button></div>`;
 }
 
 window.changeLimbahPage = (direction) => {
-  window.appState.limbahPage = Math.max(1, (window.appState.limbahPage || 1) + Number(direction));
+  window.appState.limbahPage = Math.max(
+    1,
+    (window.appState.limbahPage || 1) + Number(direction),
+  );
   renderLimbahTable();
 };
 window.changeLimbahPageSize = (size) => {
@@ -6039,9 +6079,15 @@ window.changeLimbahPageSize = (size) => {
 function renderLimbahPhotoPreviews() {
   const container = document.getElementById("limbahPhotoPreviews");
   if (!container) return;
-  container.innerHTML = limbahPhotos.map((photo, index) => `<div class="relative"><img src="${escapeHtml(photo.dataUrl)}" alt="Pratinjau foto limbah ${index + 1}" class="h-20 w-full rounded-lg border border-slate-200 object-cover"/><button type="button" onclick="removeLimbahPhoto(${index})" aria-label="Hapus foto ${index + 1}" class="absolute -right-1.5 -top-1.5 h-6 w-6 rounded-full bg-rose-600 text-white shadow"><i class="fa-solid fa-xmark"></i></button></div>`).join("");
+  container.innerHTML = limbahPhotos
+    .map(
+      (photo, index) =>
+        `<div class="relative"><img src="${escapeHtml(photo.dataUrl)}" alt="Pratinjau foto limbah ${index + 1}" class="h-20 w-full rounded-lg border border-slate-200 object-cover"/><button type="button" onclick="removeLimbahPhoto(${index})" aria-label="Hapus foto ${index + 1}" class="absolute -right-1.5 -top-1.5 h-6 w-6 rounded-full bg-rose-600 text-white shadow"><i class="fa-solid fa-xmark"></i></button></div>`,
+    )
+    .join("");
   const status = document.getElementById("limbahPhotoStatus");
-  if (status) status.textContent = `${limbahPhotos.length}/4 foto dipilih. JPG, PNG, atau WebP.`;
+  if (status)
+    status.textContent = `${limbahPhotos.length}/4 foto dipilih. JPG, PNG, atau WebP.`;
 }
 
 window.handleLimbahPhotoChange = async function (input) {
@@ -6054,12 +6100,16 @@ window.handleLimbahPhotoChange = async function (input) {
   }
   const version = ++limbahPhotoRequestVersion;
   const status = document.getElementById("limbahPhotoStatus");
-  if (status) status.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mengompres foto...';
+  if (status)
+    status.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mengompres foto...';
   try {
     const compressed = [];
     for (const file of files) {
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) throw new Error("Gunakan foto JPG, PNG, atau WebP.");
-      if (file.size > 20 * 1024 * 1024) throw new Error("Ukuran foto asli maksimal 20 MB.");
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type))
+        throw new Error("Gunakan foto JPG, PNG, atau WebP.");
+      if (file.size > 20 * 1024 * 1024)
+        throw new Error("Ukuran foto asli maksimal 20 MB.");
       compressed.push(await compressArrivalPhoto(file));
     }
     if (version !== limbahPhotoRequestVersion) return;
@@ -6087,15 +6137,22 @@ window.openLimbahModal = function (id = "") {
   limbahPhotos = [];
   document.getElementById("limbahId").value = "";
   document.getElementById("limbahTanggal").value = getLocalDateString();
-  document.getElementById("limbahModalTitle").textContent = id ? "Edit Limbah" : "Tambah Limbah";
+  document.getElementById("limbahModalTitle").textContent = id
+    ? "Edit Limbah"
+    : "Tambah Limbah";
   if (id) {
     const item = window.appState.limbah.find((entry) => entry.id === id);
     if (!item) return;
     document.getElementById("limbahId").value = item.id;
-    document.getElementById("limbahTanggal").value = item.tanggal || String(item.createdAt || "").slice(0, 10) || getLocalDateString();
+    document.getElementById("limbahTanggal").value =
+      item.tanggal ||
+      String(item.createdAt || "").slice(0, 10) ||
+      getLocalDateString();
     document.getElementById("limbahNama").value = item.nama || "";
     document.getElementById("limbahBerat").value = item.berat ?? "";
-    limbahPhotos = Array.isArray(item.fotoLimbah) ? item.fotoLimbah.slice(0, 4) : [];
+    limbahPhotos = Array.isArray(item.fotoLimbah)
+      ? item.fotoLimbah.slice(0, 4)
+      : [];
   }
   renderLimbahPhotoPreviews();
   const modal = document.getElementById("modalLimbah");
@@ -6115,12 +6172,21 @@ window.editLimbah = (id) => window.openLimbahModal(id);
 window.viewLimbah = function (id) {
   const item = window.appState.limbah.find((entry) => entry.id === id);
   if (!item) return;
-  const photos = Array.isArray(item.fotoLimbah) ? item.fotoLimbah.slice(0, 4) : [];
+  const photos = Array.isArray(item.fotoLimbah)
+    ? item.fotoLimbah.slice(0, 4)
+    : [];
   const photoHtml = photos.length
-    ? photos.map((photo, index) => `<img src="${escapeHtml(photo.dataUrl || "")}" alt="Foto ${escapeHtml(item.nama || "limbah")} ${index + 1}" class="h-40 w-full rounded-xl border border-slate-200 object-cover"/>`).join("")
+    ? photos
+        .map(
+          (photo, index) =>
+            `<img src="${escapeHtml(photo.dataUrl || "")}" alt="Foto ${escapeHtml(item.nama || "limbah")} ${index + 1}" class="h-40 w-full rounded-xl border border-slate-200 object-cover"/>`,
+        )
+        .join("")
     : '<div class="col-span-full rounded-xl bg-slate-50 p-8 text-center text-sm text-slate-400">Belum ada foto limbah.</div>';
-  document.getElementById("limbahViewTitle").textContent = item.nama || "Detail Limbah";
-  document.getElementById("limbahViewDetails").innerHTML = `<div><p class="text-xs text-slate-500">Tanggal</p><p class="mt-1 font-semibold text-slate-800">${escapeHtml(formatDateID(item.tanggal || String(item.createdAt || "").slice(0, 10)) || "-")}</p></div><div><p class="text-xs text-slate-500">Berat</p><p class="mt-1 font-semibold text-slate-800">${escapeHtml(Number(item.berat || 0).toLocaleString("id-ID", { maximumFractionDigits: 3 }))} kg</p></div>`;
+  document.getElementById("limbahViewTitle").textContent =
+    item.nama || "Detail Limbah";
+  document.getElementById("limbahViewDetails").innerHTML =
+    `<div><p class="text-xs text-slate-500">Tanggal</p><p class="mt-1 font-semibold text-slate-800">${escapeHtml(formatDateID(item.tanggal || String(item.createdAt || "").slice(0, 10)) || "-")}</p></div><div><p class="text-xs text-slate-500">Berat</p><p class="mt-1 font-semibold text-slate-800">${escapeHtml(Number(item.berat || 0).toLocaleString("id-ID", { maximumFractionDigits: 3 }))} kg</p></div>`;
   document.getElementById("limbahViewPhotos").innerHTML = photoHtml;
   const modal = document.getElementById("modalLimbahView");
   modal.classList.remove("hidden");
@@ -6138,14 +6204,33 @@ window.saveLimbah = async function (event) {
   const nama = document.getElementById("limbahNama").value.trim();
   const tanggal = document.getElementById("limbahTanggal").value;
   const berat = Number(document.getElementById("limbahBerat").value);
-  if (!tanggal || !nama || !Number.isFinite(berat) || berat <= 0 || limbahPhotos.length > 4) {
-    showToast("Isi tanggal, nama limbah, dan berat lebih dari 0 kg; maksimal 4 foto", "error");
+  if (
+    !tanggal ||
+    !nama ||
+    !Number.isFinite(berat) ||
+    berat <= 0 ||
+    limbahPhotos.length > 4
+  ) {
+    showToast(
+      "Isi tanggal, nama limbah, dan berat lebih dari 0 kg; maksimal 4 foto",
+      "error",
+    );
     return;
   }
-  const id = document.getElementById("limbahId").value || `limbah_${Date.now()}`;
+  const id =
+    document.getElementById("limbahId").value || `limbah_${Date.now()}`;
   const previous = window.appState.limbah.find((item) => item.id === id);
   const now = new Date().toISOString();
-  const data = { tanggal, nama, berat, fotoLimbah: limbahPhotos.slice(0, 4), updatedAt: now, ...(previous ? {} : { createdAt: now, createdBy: window.appState.user?.uid || "" }) };
+  const data = {
+    tanggal,
+    nama,
+    berat,
+    fotoLimbah: limbahPhotos.slice(0, 4),
+    updatedAt: now,
+    ...(previous
+      ? {}
+      : { createdAt: now, createdBy: window.appState.user?.uid || "" }),
+  };
   const button = document.getElementById("saveLimbahBtn");
   setButtonLoading(button, true, "Menyimpan...");
   try {
