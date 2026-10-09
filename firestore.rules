@@ -9,15 +9,21 @@ service cloud.firestore {
       return /databases/$(database)/documents/app_users/$(request.auth.token.email);
     }
 
+    function isDesignatedSuperAdmin() {
+      return signedIn() && request.auth.token.email == 'rahmatdev09@gmail.com';
+    }
+
     function hasActiveAccount() {
-      return signedIn()
-        && exists(accountPath())
-        && get(accountPath()).data.active == true
-        && get(accountPath()).data.role in ['super_admin', 'admin_logistik'];
+      return isDesignatedSuperAdmin()
+        || (signedIn()
+          && exists(accountPath())
+          && get(accountPath()).data.active == true
+          && get(accountPath()).data.role in ['super_admin', 'admin_logistik']);
     }
 
     function isSuperAdmin() {
-      return hasActiveAccount() && get(accountPath()).data.role == 'super_admin';
+      return isDesignatedSuperAdmin()
+        || (hasActiveAccount() && get(accountPath()).data.role == 'super_admin');
     }
 
     function isLogisticsAdmin() {
@@ -25,11 +31,10 @@ service cloud.firestore {
     }
 
     function hasPremiumAppAccess() {
-      return hasActiveAccount()
-        && (
-          get(accountPath()).data.role == 'super_admin'
-          || get(accountPath()).data.plan == 'premium'
-        );
+      return isDesignatedSuperAdmin()
+        || (hasActiveAccount()
+          && (get(accountPath()).data.role == 'super_admin'
+            || get(accountPath()).data.plan == 'premium'));
     }
 
     match /app_users/{email} {
@@ -87,6 +92,20 @@ service cloud.firestore {
     match /pms/{pmId} {
       allow read: if hasPremiumAppAccess();
       allow write: if isSuperAdmin();
+    }
+
+    match /pm_daily_history/{recordId} {
+      allow read: if hasPremiumAppAccess();
+      allow create, update: if isSuperAdmin()
+        && request.resource.data.date == recordId
+        && request.resource.data.pmCount is number
+        && request.resource.data.totalPenerima is number
+        && request.resource.data.porsiBesar is number
+        && request.resource.data.porsiKecil is number
+        && request.resource.data.totalPagu is number
+        && request.resource.data.totalInsentifMitra is number
+        && request.resource.data.pmDetails is list;
+      allow delete: if isSuperAdmin();
     }
 
     match /{document=**} {

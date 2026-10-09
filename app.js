@@ -25,7 +25,7 @@ const firebaseConfig = {
   storageBucket: "sppg-tanjung-pering-2.firebasestorage.app",
   messagingSenderId: "871982906822",
   appId: "1:871982906822:web:0cefb8dc71c1e09d5706c7",
-  measurementId: "G-9RLD44C7HZ"
+  measurementId: "G-9RLD44C7HZ",
 };
 window.firebaseConfigInfo = { ...firebaseConfig };
 
@@ -73,6 +73,8 @@ window.appState = {
   access: null,
   pms: [],
   pmsLoaded: false,
+  pmDailyHistory: [],
+  pmDailyHistoryLoaded: false,
   dokumen: [],
   user: null,
   pendingDelete: null,
@@ -1155,6 +1157,7 @@ function setupFirestoreListeners() {
   window.appState.inventoryLoaded = false;
   window.appState.suppliersLoaded = false;
   window.appState.pmsLoaded = false;
+  window.appState.pmDailyHistoryLoaded = false;
   window.appState.menusLoaded = false;
   window.appState.limbahLoaded = false;
   window.appState.sppLettersLoaded = false;
@@ -1433,6 +1436,24 @@ function setupFirestoreListeners() {
       window.appState.pmsLoaded = true;
       renderPMCards();
       updateDashboardMetrics();
+    },
+  );
+
+  onSnapshot(
+    collection(db, "pm_daily_history"),
+    (snapshot) => {
+      window.appState.pmDailyHistory = snapshot.docs.map((item) => ({
+        id: item.id,
+        ...item.data(),
+      }));
+      window.appState.pmDailyHistoryLoaded = true;
+      renderPMHistory();
+    },
+    (error) => {
+      console.warn("PM daily history listener warning:", error);
+      window.appState.pmDailyHistory = [];
+      window.appState.pmDailyHistoryLoaded = true;
+      renderPMHistory(error);
     },
   );
 }
@@ -6922,6 +6943,136 @@ function renderPMSummary() {
   `;
 }
 
+function buildDailyPMSnapshot(pms, date) {
+  const pmDetails = pms
+    .filter((pm) => (pm.status || "Aktif") === "Aktif")
+    .map((pm) => {
+      let porsiBesar = 0;
+      let porsiKecil = 0;
+      if (pm.jenis === "SD") {
+        porsiBesar = Number(pm.kelas46 || 0) + Number(pm.guruTendik || 0);
+        porsiKecil = Number(pm.kelas13 || 0);
+      } else if (pm.jenis === "B3") {
+        porsiBesar = Number(pm.bumil || 0) + Number(pm.busui || 0);
+        porsiKecil = Number(pm.balita || 0);
+      } else if (["SMP", "SMA"].includes(pm.jenis)) {
+        porsiBesar = Number(pm.target || 0) + Number(pm.guruTendik || 0);
+      } else if (pm.jenis === "TK") {
+        porsiBesar = Number(pm.guruTendik || 0);
+        porsiKecil = Number(pm.target || 0);
+      }
+      const totalPenerima = getPMTotal(pm);
+      return {
+        pmId: String(pm.id),
+        nama: pm.nama || "PM tanpa nama",
+        jenis: pm.jenis || "PM",
+        totalPenerima,
+        porsiBesar,
+        porsiKecil,
+        pagu: porsiBesar * 10000 + porsiKecil * 8000,
+        insentifMitra: totalPenerima * 2000,
+      };
+    });
+  const porsiBesar = pmDetails.reduce((sum, item) => sum + item.porsiBesar, 0);
+  const porsiKecil = pmDetails.reduce((sum, item) => sum + item.porsiKecil, 0);
+  const totalPenerima = pmDetails.reduce(
+    (sum, item) => sum + item.totalPenerima,
+    0,
+  );
+  return {
+    date,
+    pmCount: pmDetails.length,
+    totalPenerima,
+    porsiBesar,
+    porsiKecil,
+    totalPagu: porsiBesar * 10000 + porsiKecil * 8000,
+    totalInsentifMitra: totalPenerima * 2000,
+    pmDetails,
+    updatedAt: new Date().toISOString(),
+    updatedBy: normalizeAccountEmail(window.appState.user?.email),
+  };
+}
+
+async function persistDailyPMSnapshot(date, pms = window.appState.pms) {
+  const record = buildDailyPMSnapshot(pms, date);
+  await setDoc(doc(db, "pm_daily_history", date), record);
+  const records = new Map(
+    (window.appState.pmDailyHistory || []).map((item) => [
+      String(item.id),
+      item,
+    ]),
+  );
+  records.set(date, { id: date, ...record });
+  window.appState.pmDailyHistory = [...records.values()];
+  window.appState.pmDailyHistoryLoaded = true;
+  renderPMHistory();
+  return record;
+}
+
+function renderPMHistory(error = null) {
+  const tbody = document.getElementById("pmHistoryRows");
+  if (!tbody) return;
+  const dateInput = document.getElementById("pmHistoryDate");
+  if (dateInput && !dateInput.value) dateInput.value = getLocalDateString();
+  if (!window.appState.pmDailyHistoryLoaded) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" class="px-5 py-8 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat riwayat PM...</td></tr>';
+    return;
+  }
+  if (error) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" class="px-5 py-8 text-center text-rose-600">Riwayat tidak dapat dimuat. Periksa aturan Firestore koleksi pm_daily_history.</td></tr>';
+    return;
+  }
+  const records = [...(window.appState.pmDailyHistory || [])].sort((a, b) =>
+    String(b.date || b.id).localeCompare(String(a.date || a.id)),
+  );
+  if (!records.length) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" class="px-5 py-8 text-center text-slate-400">Belum ada rekap harian. Simpan data PM atau tekan “Rekap hari ini”.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = records
+    .map((record) => {
+      const date = String(record.date || record.id || "");
+      const dateLabel = /^\d{4}-\d{2}-\d{2}$/.test(date)
+        ? new Date(`${date}T00:00:00`).toLocaleDateString("id-ID", {
+            dateStyle: "long",
+          })
+        : date;
+      const details = Array.isArray(record.pmDetails) ? record.pmDetails : [];
+      const detailMarkup = details.length
+        ? `<details class="mt-1"><summary class="cursor-pointer text-[10px] font-semibold text-sky-700">Lihat rincian PM</summary><div class="mt-2 space-y-1">${details.map((item) => `<div class="flex flex-wrap justify-between gap-x-4 gap-y-1 rounded-lg bg-slate-50 px-2 py-1.5"><span>${escapeHtml(item.nama)} · ${escapeHtml(item.jenis)} · ${Number(item.totalPenerima || 0).toLocaleString("id-ID")} penerima</span><span>Pagu ${formatRupiah(item.pagu)} · Insentif ${formatRupiah(item.insentifMitra)}</span></div>`).join("")}</div></details>`
+        : "";
+      return `<tr class="border-t border-slate-100 align-top"><td class="px-5 py-3 font-semibold text-slate-700">${escapeHtml(dateLabel)}${detailMarkup}</td><td class="px-5 py-3 text-right">${Number(record.pmCount || 0).toLocaleString("id-ID")}</td><td class="px-5 py-3 text-right font-semibold">${Number(record.totalPenerima || 0).toLocaleString("id-ID")}</td><td class="px-5 py-3 text-right">${Number(record.porsiBesar || 0).toLocaleString("id-ID")}</td><td class="px-5 py-3 text-right">${Number(record.porsiKecil || 0).toLocaleString("id-ID")}</td><td class="px-5 py-3 text-right font-semibold text-amber-700">${formatRupiah(record.totalPagu || 0)}</td><td class="px-5 py-3 text-right font-semibold text-emerald-700">${formatRupiah(record.totalInsentifMitra || 0)}</td></tr>`;
+    })
+    .join("");
+}
+
+window.saveDailyPMSnapshot = async function () {
+  const date =
+    document.getElementById("pmHistoryDate")?.value || getLocalDateString();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date))
+    return showToast("Pilih tanggal rekap yang valid.", "error");
+  if (!window.appState.pmsLoaded)
+    return showToast("Data PM masih dimuat. Coba lagi sebentar.", "info");
+  const button = document.querySelector(
+    'button[onclick="saveDailyPMSnapshot()"]',
+  );
+  setButtonLoading(button, true, "Merekam...");
+  try {
+    await persistDailyPMSnapshot(date);
+    showToast(
+      `Rekap PM tanggal ${new Date(`${date}T00:00:00`).toLocaleDateString("id-ID", { dateStyle: "long" })} berhasil disimpan.`,
+      "success",
+    );
+  } catch (error) {
+    showToast(`Rekap gagal disimpan: ${error.message}`, "error");
+  } finally {
+    setButtonLoading(button, false);
+  }
+};
+
 window.updatePMDeactivationNoteVisibility = updatePMDeactivationNoteVisibility;
 
 window.togglePMStatus = async function (id) {
@@ -6955,13 +7106,24 @@ window.togglePMStatus = async function (id) {
     window.appState.pms = window.appState.pms.map((item) =>
       String(item.id) === String(pm.id) ? updatedPM : item,
     );
+    let historySaved = false;
+    try {
+      await persistDailyPMSnapshot(
+        document.getElementById("pmHistoryDate")?.value || getLocalDateString(),
+      );
+      historySaved = true;
+    } catch (historyError) {
+      console.warn("PM status saved, but daily recap failed:", historyError);
+    }
     renderPMCards();
     updateDashboardMetrics();
     showToast(
-      isActive
-        ? "PM dinonaktifkan; jumlah porsi dan pagu diperbarui"
-        : "PM diaktifkan kembali",
-      "success",
+      historySaved
+        ? isActive
+          ? "PM dinonaktifkan dan rekap harian diperbarui"
+          : "PM diaktifkan kembali dan rekap harian diperbarui"
+        : "Status PM tersimpan, tetapi rekap hariannya gagal diperbarui",
+      historySaved ? "success" : "error",
     );
   } catch (error) {
     showToast(error.message || "Status PM gagal disimpan", "error");
@@ -7177,9 +7339,23 @@ window.savePM = async function (event) {
   try {
     await setDoc(doc(db, "pms", id), data);
     upsertPMInState(data);
+    const recapDate =
+      document.getElementById("pmHistoryDate")?.value || getLocalDateString();
+    let historySaved = false;
+    try {
+      await persistDailyPMSnapshot(recapDate);
+      historySaved = true;
+    } catch (historyError) {
+      console.warn("PM saved, but daily recap failed:", historyError);
+    }
     renderPMCards();
     updateDashboardMetrics();
-    showToast("Data PM berhasil disimpan", "success");
+    showToast(
+      historySaved
+        ? "Data PM dan rekap hariannya berhasil disimpan"
+        : "Data PM tersimpan, tetapi rekap harian gagal. Periksa aturan pm_daily_history.",
+      historySaved ? "success" : "error",
+    );
     closeModalPM();
   } catch (err) {
     upsertPMInState(data);
@@ -7926,6 +8102,7 @@ window.executePendingDelete = async function () {
 
   try {
     await deleteDoc(doc(db, colName, String(id)));
+    let deleteMessage = `${name} telah dihapus dari database`;
     if (type === "inventory_item") {
       window.appState.inventoryItems = window.appState.inventoryItems.filter(
         (item) => String(item.id) !== String(id),
@@ -7947,8 +8124,26 @@ window.executePendingDelete = async function () {
           (item) => String(item.id) !== String(id),
         );
       renderBarangTable();
+    } else if (type === "pm") {
+      window.appState.pms = window.appState.pms.filter(
+        (pm) => String(pm.id) !== String(id),
+      );
+      renderPMCards();
+      try {
+        await persistDailyPMSnapshot(
+          document.getElementById("pmHistoryDate")?.value ||
+            getLocalDateString(),
+        );
+        deleteMessage = `${name} dihapus dan rekap harian diperbarui`;
+      } catch (historyError) {
+        console.warn("PM deleted, but daily recap failed:", historyError);
+        deleteMessage = `${name} dihapus, tetapi rekap harian gagal diperbarui`;
+      }
     }
-    showToast(`${name} telah dihapus dari database`, "success");
+    showToast(
+      deleteMessage,
+      type === "pm" && deleteMessage.includes("gagal") ? "error" : "success",
+    );
   } catch (err) {
     if (type === "supplier") {
       window.appState.suppliers = window.appState.suppliers.filter(
