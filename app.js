@@ -19,15 +19,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBQT1R5HhePD7XPIE48aZXMcC58JrL6cPk",
-  authDomain: "sppg-abc46.firebaseapp.com",
-  projectId: "sppg-abc46",
-  storageBucket: "sppg-abc46.firebasestorage.app",
-  messagingSenderId: "1067084887190",
-  appId: "1:1067084887190:web:c5948ee1cdfa525aabbeb7",
-  measurementId: "G-XB8CPB6YR6",
+  apiKey: "AIzaSyBmVv0d5rsBOF5tUau3LuRF-LasmgYNbXE",
+  authDomain: "sppg-tanjung-pering-2.firebaseapp.com",
+  projectId: "sppg-tanjung-pering-2",
+  storageBucket: "sppg-tanjung-pering-2.firebasestorage.app",
+  messagingSenderId: "871982906822",
+  appId: "1:871982906822:web:0cefb8dc71c1e09d5706c7",
+  measurementId: "G-9RLD44C7HZ"
 };
-
 window.firebaseConfigInfo = { ...firebaseConfig };
 
 const app = initializeApp(firebaseConfig);
