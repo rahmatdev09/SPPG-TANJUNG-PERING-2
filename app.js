@@ -3014,6 +3014,8 @@ window.openAdminArrival = function (itemId) {
   document.getElementById("adminArrivalItemType").value = itemType;
   document.getElementById("adminArrivalItemName").textContent =
     item.nama || item.name || "Barang";
+  document.getElementById("adminArrivalItemNeed").textContent =
+    `Jumlah kebutuhan: ${Number(item.kebutuhan || 0).toLocaleString("id-ID")} ${item.satuan || "unit"}`;
   document.getElementById("adminArrivalUnit").textContent =
     item.satuan || "unit";
   const now = new Date();
